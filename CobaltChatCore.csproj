@@ -1,0 +1,142 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
+    <UseWindowsForms>True</UseWindowsForms>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CobaltCore">
+      <HintPath>..\..\..\Steam\steamapps\common\Cobalt Core\CobaltCore.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="CobaltCoreModding.Components">
+      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModding.Components.dll</HintPath>
+    </Reference>
+    <Reference Include="CobaltCoreModding.Definitions">
+      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModding.Definitions.dll</HintPath>
+    </Reference>
+    <Reference Include="CobaltCoreModLoaderApp">
+      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModLoaderApp.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>References\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SixLabors.ImageSharp">
+      <HintPath>References\SixLabors.ImageSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api">
+      <HintPath>References\TwitchLib.Api.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Core">
+      <HintPath>References\TwitchLib.Api.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Core.Enums">
+      <HintPath>References\TwitchLib.Api.Core.Enums.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Core.Interfaces">
+      <HintPath>References\TwitchLib.Api.Core.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Core.Models">
+      <HintPath>References\TwitchLib.Api.Core.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Helix">
+      <HintPath>References\TwitchLib.Api.Helix.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Api.Helix.Models">
+      <HintPath>References\TwitchLib.Api.Helix.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Client">
+      <HintPath>References\TwitchLib.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Client.Enums">
+      <HintPath>References\TwitchLib.Client.Enums.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Client.Models">
+      <HintPath>References\TwitchLib.Client.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.Communication">
+      <HintPath>References\TwitchLib.Communication.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TwitchLib.PubSub">
+      <HintPath>References\TwitchLib.PubSub.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="References\Newtonsoft.Json.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Core.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Core.Enums.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Core.Interfaces.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Core.Models.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Helix.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Api.Helix.Models.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Client.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Client.Enums.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Client.Models.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.Communication.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="References\TwitchLib.PubSub.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Sprites\viewer_avatar_fallback.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Sprites\viewer_frame.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

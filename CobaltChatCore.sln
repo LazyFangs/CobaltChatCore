@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobaltChatCore", "CobaltChatCore.csproj", "{BCEDD28F-8D10-4F8A-8E6C-7585F5037D7B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCEDD28F-8D10-4F8A-8E6C-7585F5037D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCEDD28F-8D10-4F8A-8E6C-7585F5037D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCEDD28F-8D10-4F8A-8E6C-7585F5037D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCEDD28F-8D10-4F8A-8E6C-7585F5037D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D6178C3-4444-4590-94A5-FF5E651FA48C}
+	EndGlobalSection
+EndGlobal
