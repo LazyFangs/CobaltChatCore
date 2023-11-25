@@ -86,6 +86,8 @@ namespace CobaltChatCore
 
         private static void CardRender_PostFix(object[] __args, Card __instance)
         {
+            return;//TODO
+
             if (((G)__args[0]).state.route is not CardReward)
                 return;
 
