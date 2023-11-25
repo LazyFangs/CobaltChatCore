@@ -49,7 +49,7 @@ namespace CobaltChatCore
         public string JoinCommand { get; set; } = "join";
         public string ChatterListClearCommand { get; set; } = "clear";
         public string CardGiveCommand { get; set; } = "card";
-        public string CloseQueueCommand { get; set; } = "stop";
+        public string CloseQueueCommand { get; set; } = "close";
         public string OpenQueueCommand { get; set; } = "open";
         public string ChatterEjectCommand { get; set; } = "eject";
         public string ChatterBanCommand { get; set; } = "ban";

@@ -189,7 +189,7 @@ namespace CobaltChatCore
             Configuration.GetConfiguration(Logger, ModRootFolder).GetAwaiter().GetResult();
             TwitchApiUser.Setup(Logger);
             TwitchChat.Setup(Logger);
-            Task.Run(async () => await TwitchApiUser.ObtainAccessToken());
+            Task.Run(async () => await TwitchApiUser.IsTokenValid());
             var addon = new Form1();
             addon.InitMainForm(form);
             //Form1.Init(form);
