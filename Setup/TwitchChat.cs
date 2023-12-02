@@ -28,8 +28,7 @@ namespace CobaltChatCore
                 Client.Disconnect();
             Client = null;
 
-
-            if (Configuration.Instance == null || !Configuration.Instance.Ready)
+            if (!Configuration.Instance?.TokenValidated ?? false)
                 throw new Exception("Configuration not created or lack of authorization!");
 
             ConnectionCredentials credentials = new ConnectionCredentials(Configuration.Instance.ChannelName, Configuration.Instance.AccessToken);

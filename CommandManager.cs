@@ -86,29 +86,35 @@ namespace CobaltChatCore
 
         void ReplaceEnemyWithChatter(State state)
         {
-            if (!Configuration.Instance.Ready || state.route == null || state.route is not Combat || state.map?.GetCurrent()?.contents is not MapBattle)
-            {
-                logger.LogError("Empty combat passed or not a combat!");
-                return;
-            }
-            var combatType = ((MapBattle)state.map.GetCurrent().contents).battleType;
-
-            if (Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
-                logger.LogInformation($"Combat type {combatType} not allowed for override!");
-
             Combat c = (Combat)state.route;
-            if (!queueOpen)
-            {
-                logger.LogInformation("Queue closed, not replacing enemy");
-            }
-
-            AI ai = c.otherShip?.ai;
+            AI ai = c?.otherShip?.ai;
 
             if (ai == null || ai.Name() == "FakeCombat")
             {
                 logger.LogError("Ignoring Fake Combat");
                 return;
             }
+
+            if (state.route == null || state.route is not Combat || state.map?.GetCurrent()?.contents is not MapBattle)
+            {
+                logger.LogError("Empty combat passed or not a combat!");
+                return;
+            }
+            
+            if (!queueOpen)
+            {
+                logger.LogInformation("Queue closed, not replacing enemy");
+            }
+
+            var combatType = ((MapBattle)state.map.GetCurrent().contents).battleType;
+
+            if (Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
+            {
+                logger.LogInformation($"Combat type {combatType} not allowed for override!");
+                return;
+            }
+
+            
 
             if (ai.character.type == CobaltChatCoreManifest.TwitchCharacterName + "Deck")
             {

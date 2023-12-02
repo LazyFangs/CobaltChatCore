@@ -14,7 +14,7 @@ namespace CobaltChatCore
 {
     public class CobaltChatCoreManifest : ISpriteManifest, IAnimationManifest, ICustomEventManifest, IDeckManifest, IAddinManifest
     {
-        public const string version = "0.5";
+        public const string version = "0.7.1";
 
         public DirectoryInfo? ModRootFolder { get; set; }
         public DirectoryInfo? GameRootFolder { get; set; }
@@ -134,6 +134,11 @@ namespace CobaltChatCore
         {
             try
             {
+                if (Configuration.Instance == null)
+                    throw new Exception("Configuration missing! Please run Warmup before starting the mod! CobaltChatCore aborted...");
+                if (!Configuration.Instance.TokenValidated || string.IsNullOrEmpty(Configuration.Instance.ChannelName))
+                    throw new Exception("Invalid token or missing channel name! CobaltChatCore aborted...");
+
                 Configuration.SaveConfiguration();//right after warmup, so save any potential stuff like changed channel name
                 
                 //await Configuration.GetConfiguration(Logger, ModRootFolder); we use warmup
@@ -186,10 +191,10 @@ namespace CobaltChatCore
 
             MainForm form = (MainForm)launcherUI;
 
-            Configuration.GetConfiguration(Logger, ModRootFolder).GetAwaiter().GetResult();
+            Configuration.GetConfiguration(Logger, ModRootFolder);
             TwitchApiUser.Setup(Logger);
             TwitchChat.Setup(Logger);
-            Task.Run(async () => await TwitchApiUser.IsTokenValid());
+            Task.Run(async () => await TwitchApiUser.IsTokenValid()).Wait();
             var addon = new Form1();
             addon.InitMainForm(form);
             //Form1.Init(form);

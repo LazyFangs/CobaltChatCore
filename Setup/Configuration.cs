@@ -27,7 +27,7 @@ namespace CobaltChatCore
         public static List<string> Scopes = new List<string> { "chat:read", "user:bot", "chat:edit" };
         public static List<string> SpecialPeople = new List<string> { "Lazy_Fangs", "johndaguerra", "CherofTunes", "daisyowl_ben" };
         [JsonIgnore]
-        public bool Ready { get; set; } = false;
+        public bool TokenValidated { get; set; } = false;
         #region Strings
         public int SecondsBetweenReminders { get; set; } = 300;//every 5 minutes
         public static string OnSetupCompleteText { get => $"CobaltChatCore v {CobaltChatCoreManifest.version} active!"; }
@@ -87,7 +87,7 @@ namespace CobaltChatCore
         {
             //not used
         }
-        public static async Task GetConfiguration(ILogger logger, DirectoryInfo rootDirectory)
+        public static void GetConfiguration(ILogger logger, DirectoryInfo rootDirectory)
         {
             Configuration.logger = logger;
             Configuration.ConfigPath = rootDirectory.FullName +Path.DirectorySeparatorChar+ "config.json";
@@ -112,7 +112,7 @@ namespace CobaltChatCore
             logger.LogInformation("Configuration loaded!");
         }
 
-        public static async Task SaveConfiguration()
+        public static void SaveConfiguration()
         {
             using (StreamWriter file = File.CreateText(Configuration.ConfigPath))
             {

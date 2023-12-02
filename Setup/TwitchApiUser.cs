@@ -40,7 +40,8 @@ namespace CobaltChatCore
                 Configuration.Instance.AccessToken = api.Settings.AccessToken;
                 Configuration.Instance.ValidUntil = DateTimeOffset.Now.ToUnixTimeSeconds() + valid.ExpiresIn;
                 logger?.LogInformation($"Current token is valid until {DateTimeOffset.FromUnixTimeSeconds(Configuration.Instance.ValidUntil)}");
-                await Configuration.SaveConfiguration();
+                Configuration.Instance.TokenValidated = true;
+                Configuration.SaveConfiguration();
                 return true;
             }
             else
@@ -48,6 +49,7 @@ namespace CobaltChatCore
                 api.Settings.AccessToken = null;
                 Configuration.Instance.AccessToken = null;
                 Configuration.Instance.ValidUntil = 0;
+                Configuration.Instance.TokenValidated = false;
                 logger?.LogInformation($"Current token is invalid or missing");
             }
                 return false;
@@ -65,7 +67,6 @@ namespace CobaltChatCore
             else
             if (await IsTokenValid())
             {
-                Configuration.Instance.Ready = true;
                 return;
             }                    
 
@@ -97,11 +98,8 @@ namespace CobaltChatCore
                 api.Settings.AccessToken = token;
 
                 // get the auth'd user
-                if (await IsTokenValid())
-                {
-                    Configuration.Instance.Ready = true;
-                } 
-
+                await IsTokenValid();
+                
             } finally
             {
                 
