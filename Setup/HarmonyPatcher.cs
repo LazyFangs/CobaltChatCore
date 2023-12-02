@@ -46,7 +46,7 @@ namespace CobaltChatCore
         private static void CombatOnEnter_PostFix(object[] __args)
         {
             var state = (State)__args[0];
-            Logger.LogInformation(state.route.GetType().ToString());
+            //Logger.LogInformation(state.route.GetType().ToString());
             if (state.route is Combat)
                 //pass state, because state has map info that defines what type of combat this is.
                 CobaltChatCoreManifest.EventHub?.SignalEvent<State>(CobaltChatCoreManifest.StartCombatEvent, state);
@@ -74,7 +74,7 @@ namespace CobaltChatCore
         {
             
             var state = (State)__args[0];
-            Logger.LogInformation($"///////////////////////// {state.route.GetType()}");
+            //Logger.LogInformation($"///////////////////////// {state.route.GetType()}");
             CobaltChatCoreManifest.EventHub?.SignalEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, state.route.GetType().ToString());
            
         }

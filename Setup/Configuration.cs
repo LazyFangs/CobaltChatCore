@@ -59,7 +59,7 @@ namespace CobaltChatCore
         #endregion
         #region Battle Join Parameters
         public float ChatterChance { get; set; } = 1;//0 - 100% chance
-        public List<BattleType> AllowedEncounterOverrides { get; set; } = new List<BattleType> {BattleType.Normal};
+        public List<BattleType> AllowedEncounterOverrides { get; set; } = new List<BattleType> {BattleType.Normal, BattleType.Easy};
         /// <summary>
         /// How many times a player can join between they no longer show up? Anything bigger than 1000 is infinity
         /// </summary>

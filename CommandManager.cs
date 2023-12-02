@@ -57,10 +57,8 @@ namespace CobaltChatCore
         /// </summary>
         Dictionary<string, int> chattersAvailable = new Dictionary<string, int>();
         List<string> bannedChatters = new List<string>();
-        private string _currentlySelectedChatter;
-        public string CurrentlySelectedChatter { get => _currentlySelectedChatter; private set {
-                _currentlySelectedChatter = value;
-            } }
+        
+        public string CurrentlySelectedChatter { get; private set; }
 
         public bool queueOpen = true;
         bool inCombat = false;
@@ -108,7 +106,7 @@ namespace CobaltChatCore
 
             var combatType = ((MapBattle)state.map.GetCurrent().contents).battleType;
 
-            if (Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
+            if (!Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
             {
                 logger.LogInformation($"Combat type {combatType} not allowed for override!");
                 return;
@@ -122,8 +120,11 @@ namespace CobaltChatCore
                 return;
             }
 
+            CurrentlySelectedChatter = SelectChatter(Configuration.Instance.ChoiceMode);
             if (CurrentlySelectedChatter != null)
             {
+                //we put out a signal here to make sure only valid fights are replaced
+                CobaltChatCoreManifest.EventHub.SignalEvent<string>(CobaltChatCoreManifest.SelectChatterEvent, CurrentlySelectedChatter);
                 logger.LogInformation($"Selected {CurrentlySelectedChatter} as next enemy");
                 chattersAvailable[CurrentlySelectedChatter] += 1;
                 inCombat = true;
@@ -171,17 +172,13 @@ namespace CobaltChatCore
 
         public void TryEndCombat(string type)
         {
-
-            
-            
             //don't end combat if we aren't in combat and we have a lined up chatter
             if (!inCombat && CurrentlySelectedChatter != null && type == "Combat")
                 return;
             inCombat = false;           
             logger.LogInformation("Exited Combat");
             //roll for another chatter ahead of time
-            CurrentlySelectedChatter = SelectChatter(Configuration.Instance.ChoiceMode);
-            CobaltChatCoreManifest.EventHub.SignalEvent<string>(CobaltChatCoreManifest.SelectChatterEvent, CurrentlySelectedChatter);
+            CurrentlySelectedChatter = null;
             combatActions.Clear();
             
         }

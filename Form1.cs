@@ -142,13 +142,22 @@ namespace CobaltChatCore
             CheckBox chk = sender as CheckBox;
             if (Enum.TryParse(chk.Tag.ToString(), out BattleType type))
             {
-                if (chk.Checked && !Configuration.Instance.AllowedEncounterOverrides.Contains(type))
-                    Configuration.Instance.AllowedEncounterOverrides.Add(type);
-                if (!chk.Checked && Configuration.Instance.AllowedEncounterOverrides.Contains(type))
-                    Configuration.Instance.AllowedEncounterOverrides.Remove(type);
+                ChangeAllowedBattleType(type, chk.Checked);
             }
             else
                 MessageBox.Show($"Incorrect tag on Allowed Battle Types for {chk.Tag}!");
+        }
+
+        private void ChangeAllowedBattleType(BattleType type, bool allowed)
+        {
+            if (allowed && !Configuration.Instance.AllowedEncounterOverrides.Contains(type))
+                Configuration.Instance.AllowedEncounterOverrides.Add(type);
+            if (!allowed && Configuration.Instance.AllowedEncounterOverrides.Contains(type))
+                Configuration.Instance.AllowedEncounterOverrides.Remove(type);
+
+            if (type == BattleType.Normal)
+                ChangeAllowedBattleType(BattleType.Easy, allowed);
+           
         }
 
     }

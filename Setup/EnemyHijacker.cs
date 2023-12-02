@@ -137,7 +137,6 @@ namespace CobaltChatCore
         /// <exception cref="Exception"></exception>
         public void DoCharacterSwap(Character original)
         {
-            Logger.LogInformation(CachedTextures.Count.ToString());
             if (chatterEnemies[FallbackCharacterName].Texture == null)
                 chatterEnemies[FallbackCharacterName].Texture = SpriteLoader.Get((Spr)FallbackCharacterSprite);
 
