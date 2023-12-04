@@ -14,7 +14,7 @@ namespace CobaltChatCore
 {
     public class CobaltChatCoreManifest : ISpriteManifest, IAnimationManifest, ICustomEventManifest, IDeckManifest, IAddinManifest
     {
-        public const string version = "0.7.1";
+        public const string version = "0.7.9";
 
         public DirectoryInfo? ModRootFolder { get; set; }
         public DirectoryInfo? GameRootFolder { get; set; }
@@ -31,19 +31,26 @@ namespace CobaltChatCore
         public const string UpdateCombatEvent = "LazyFangs.CCC.UpdateCombatEvent";
         public const string EnterRouteEvent = "LazyFangs.CCC.EnterRouteEvent";
         public const string GRenderEvent = "LazyFangs.CCC.GRenderEvent";
-        public const string SelectChatterEvent = "LazyFangs.CCC.SelectChatterEvent";
+        public const string SelectEnemyChatterEvent = "LazyFangs.CCC.SelectEnemyChatterEvent";
         public const string ChatterJoinsEvent = "LazyFangs.CCC.ChatterJoinsEvent";
         public const string ClearChattersEvent = "LazyFangs.CCC.ClearChattersEvent";
         public const string ChatterShoutEvent = "LazyFangs.CCC.ChatterShoutEvent";
         public const string ChatterEjectedEvent = "LazyFangs.CCC.ChatterEjectedEvent";
+        
+        public const string ASpawnBeginPre = "LazyFangs.CCC.ASpawnBeginPre";
+        public const string ASpawnBeginPost = "LazyFangs.CCC.ASpawnBeginPost";
+        public const string SelectDroneChatterEvent = "LazyFangs.CCC.SelectDroneChatterEvent";
+        public const string StuffOnDestroyed = "LazyFangs.CCC.StuffOnDestroyed";
 
         public const string TwitchCharacterName = "LazyFangs.CCC.TwitchEnemy";
         public const string TwitchCharacterShout = TwitchCharacterName + "Text";
+        public const string IsaacDroneShout = "LazyFangs.CCC.DroneShoutText";
 
         public ILogger? Logger { get; set; }
 
         public static CommandManager commandManager { get; private set; }
         public static EnemyHijacker? enemyHijacker { get; private set; }
+        public static DroneHijacker? droneHijacker { get; private set; }
 
         public Assembly CobaltCoreAssembly => throw new NotImplementedException();
 
@@ -81,11 +88,16 @@ namespace CobaltChatCore
             eventHub.MakeEvent<Combat>(UpdateCombatEvent);
             eventHub.MakeEvent<string>(EnterRouteEvent);
             eventHub.MakeEvent<string>(GRenderEvent);
-            eventHub.MakeEvent<string>(SelectChatterEvent);
-            eventHub.MakeEvent<string>(ChatterJoinsEvent);
+            eventHub.MakeEvent<string>(SelectEnemyChatterEvent);
+            eventHub.MakeEvent<ChatMessage>(ChatterJoinsEvent);
             eventHub.MakeEvent<string>(ClearChattersEvent);
             eventHub.MakeEvent<ChatMessage>(ChatterShoutEvent);
             eventHub.MakeEvent<string>(ChatterEjectedEvent);
+            
+            eventHub.MakeEvent<ASpawn>(ASpawnBeginPre);
+            eventHub.MakeEvent<ASpawn>(ASpawnBeginPost);
+            eventHub.MakeEvent<string>(SelectDroneChatterEvent);
+            eventHub.MakeEvent<StuffBase>(StuffOnDestroyed);
             EventHub = eventHub;
 
             Task.Run(async () => await PrepareAndConnectToTwitch());
@@ -93,7 +105,6 @@ namespace CobaltChatCore
 
         public void LoadManifest(IAnimationRegistry registry)
         {
-            Logger.LogInformation(enemyHijacker.Id.ToString());
             default_animation = new ExternalAnimation(TwitchCharacterName+"Animation", twitch_deck ?? throw new NullReferenceException(), "neutral", false, new ExternalSprite[] {
                 ExternalSprite.GetRaw(enemyHijacker.Id),
                 ExternalSprite.GetRaw(enemyHijacker.Id),
@@ -150,6 +161,8 @@ namespace CobaltChatCore
                 while (enemyHijacker == null) Thread.Sleep(1000);
                 enemyHijacker.Setup(Logger);
                 commandManager.Setup(Logger);
+                droneHijacker = new DroneHijacker();
+                droneHijacker.Setup(Logger);
 
                 Logger?.LogInformation("Setup ready!");
 

@@ -49,17 +49,16 @@ namespace CobaltChatCore
             }
         }
 
-        Dictionary<string, TwitchCommand> commands = new Dictionary<string, TwitchCommand>();
+        public static Dictionary<string, TwitchCommand> commands = new Dictionary<string, TwitchCommand>();
         ConcurrentQueue<Action<Combat>> combatActions = new ConcurrentQueue<Action<Combat>>();
 
         /// <summary>
         /// displayname -> number of times they were picked;
         /// </summary>
-        Dictionary<string, int> chattersAvailable = new Dictionary<string, int>();
+        public static Dictionary<string, int> ChattersAvailable = new Dictionary<string, int>();
+        public static Dictionary<string, Color> ChatterColors = new Dictionary<string, Color>();
         List<string> bannedChatters = new List<string>();
-        
-        public string CurrentlySelectedChatter { get; private set; }
-
+       
         public bool queueOpen = true;
         bool inCombat = false;
 
@@ -76,87 +75,16 @@ namespace CobaltChatCore
             
             TwitchChat.Client.OnMessageReceived += OnChatMessageReceived;
 
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<State>(CobaltChatCoreManifest.StartCombatEvent, (st) => ReplaceEnemyWithChatter(st));
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.SelectEnemyChatterEvent, (st) => EnemyChatterSelected(st));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => TryEndCombat(s));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<Combat>(CobaltChatCoreManifest.UpdateCombatEvent, (c) => OnCombatUpdate(c));
 
         }
 
-        void ReplaceEnemyWithChatter(State state)
+        void EnemyChatterSelected(string user)
         {
-            Combat c = (Combat)state.route;
-            AI ai = c?.otherShip?.ai;
-
-            if (ai == null || ai.Name() == "FakeCombat")
-            {
-                logger.LogError("Ignoring Fake Combat");
-                return;
-            }
-
-            if (state.route == null || state.route is not Combat || state.map?.GetCurrent()?.contents is not MapBattle)
-            {
-                logger.LogError("Empty combat passed or not a combat!");
-                return;
-            }
-            
-            if (!queueOpen)
-            {
-                logger.LogInformation("Queue closed, not replacing enemy");
-            }
-
-            var combatType = ((MapBattle)state.map.GetCurrent().contents).battleType;
-
-            if (!Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
-            {
-                logger.LogInformation($"Combat type {combatType} not allowed for override!");
-                return;
-            }
-
-            
-
-            if (ai.character.type == CobaltChatCoreManifest.TwitchCharacterName + "Deck")
-            {
-                logger.LogInformation("Chatter already present");
-                return;
-            }
-
-            CurrentlySelectedChatter = SelectChatter(Configuration.Instance.ChoiceMode);
-            if (CurrentlySelectedChatter != null)
-            {
-                //we put out a signal here to make sure only valid fights are replaced
-                CobaltChatCoreManifest.EventHub.SignalEvent<string>(CobaltChatCoreManifest.SelectChatterEvent, CurrentlySelectedChatter);
-                logger.LogInformation($"Selected {CurrentlySelectedChatter} as next enemy");
-                chattersAvailable[CurrentlySelectedChatter] += 1;
-                inCombat = true;
-            }
-            else
-                logger.LogInformation("No chatters or no luck this time. No replacement done");
-        }
-
-       
-        string SelectChatter(ChatterChoiceMode choiceMode)
-        {
-            var list = chattersAvailable.ToImmutableDictionary();
-            Random random = new Random();
-            double randomNumber = random.NextDouble();
-
-            if (list.Count > 0 && randomNumber < Configuration.Instance.ChatterChance)
-            {
-                string chosenOne = null;
-                switch (choiceMode)
-                {
-                    case ChatterChoiceMode.LEAST_SELECTED:
-                        chosenOne = list.Where(kvp => kvp.Value < Configuration.Instance.ChatterPickLimit).OrderBy(kvp => kvp.Value).First().Key;
-                        break;
-                    case ChatterChoiceMode.RANDOM:
-                        chosenOne = list.Keys.ElementAt(random.Next(0, list.Keys.Count()));
-                        break;
-                }
-                return chosenOne;
-            }
-
-            else
-                return null;
+            ChattersAvailable[user] += 1;
+            inCombat = true;
         }
 
         public void OnChatMessageReceived(object sender, OnMessageReceivedArgs e)
@@ -165,20 +93,16 @@ namespace CobaltChatCore
             string command = parts[0];
             if (command.StartsWith(Configuration.Instance.CommandSignal) && commands.TryGetValue(command.Substring(1), out TwitchCommand action))
                 action.Invoke(e);
-            else
-                if (CurrentlySelectedChatter == e.ChatMessage.DisplayName)
-                    CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterShoutEvent, e.ChatMessage);
         }
 
         public void TryEndCombat(string type)
         {
             //don't end combat if we aren't in combat and we have a lined up chatter
-            if (!inCombat && CurrentlySelectedChatter != null && type == "Combat")
+            if (!inCombat && type == "Combat")
                 return;
             inCombat = false;           
             logger.LogInformation("Exited Combat");
             //roll for another chatter ahead of time
-            CurrentlySelectedChatter = null;
             combatActions.Clear();
             
         }
@@ -192,7 +116,7 @@ namespace CobaltChatCore
                         TwitchChat.SendMessageToChat(Configuration.Instance.JoinFailedQueueClosedText);
                         return;
                     }
-                    if (chattersAvailable.ContainsKey(e.ChatMessage.DisplayName))
+                    if (ChattersAvailable.ContainsKey(e.ChatMessage.DisplayName))
                     {
                         TwitchChat.SendMessageToChat(Configuration.Instance.JoinFailedAlreadyQueuedText);
                         return;
@@ -205,8 +129,9 @@ namespace CobaltChatCore
                     }
 
                     logger.LogInformation($"{e.ChatMessage.DisplayName} joined the fight!");
-                    chattersAvailable.Add(e.ChatMessage.DisplayName, 0);
-                    CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterJoinsEvent, e.ChatMessage.DisplayName);
+                    ChattersAvailable.Add(e.ChatMessage.DisplayName, 0);
+                    ChatterColors.Add(e.ChatMessage.DisplayName, new Color(e.ChatMessage.ColorHex.Substring(1)));
+                    CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterJoinsEvent, e.ChatMessage);
                     TwitchChat.SendMessageToChat(Configuration.Instance.ChatterJoinedText.Replace("{User}", e.ChatMessage.DisplayName));
 
                 }));
@@ -225,20 +150,13 @@ namespace CobaltChatCore
 
             commands.Add(Configuration.Instance.ChatterListClearCommand, new TwitchCommand(TwitchCommand.AccessLevel.MOD, (e) =>
             {
-                chattersAvailable.Clear();
+                ChattersAvailable.Clear();
                 CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ClearChattersEvent, e.ChatMessage.DisplayName);
                 TwitchChat.SendMessageToChat(Configuration.Instance.QueueClearedText);
             }));
             commands.Add(Configuration.Instance.ChatterEjectCommand, new TwitchCommand(TwitchCommand.AccessLevel.MOD, (e) =>
             {
-                if (CurrentlySelectedChatter != null)
-                {
-                    CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, CurrentlySelectedChatter);
-                    TwitchChat.SendMessageToChat(Configuration.Instance.ChatterEjectText.Replace("{User}", CurrentlySelectedChatter));
-                    CurrentlySelectedChatter = null;
-                }
-                
-                
+                CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, (string)null);   
             }));
             commands.Add(Configuration.Instance.ChatterBanCommand, new TwitchCommand(TwitchCommand.AccessLevel.MOD, (e) =>
             {
@@ -247,11 +165,11 @@ namespace CobaltChatCore
                 if (list.Length > 1 && !string.IsNullOrEmpty(list[1]))
                 {
                     var name = list[1].StartsWith("@") ? list[1].Substring(1) : list[1];
-                    foreach (string user in chattersAvailable.Keys)
+                    foreach (string user in ChattersAvailable.Keys)
                     {
                         if (user.ToLower() == name.ToLower()) {
                             name = user; 
-                            chattersAvailable.Remove(user);
+                            ChattersAvailable.Remove(user);
                             CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, name);
                             bannedChatters.Add(name);
                             TwitchChat.SendMessageToChat(Configuration.Instance.ChatterBanText.Replace("{User}", name));
@@ -314,6 +232,7 @@ namespace CobaltChatCore
                 });
             //silent fail, this is a hidden function after all
             }));
+            
 
         }
 

@@ -289,7 +289,7 @@ namespace CobaltChatCore
             // 
             // nudChatterChance
             // 
-            this.nudChatterChance.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterChance", true));
+            this.nudChatterChance.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterEnemyChance", true));
             this.nudChatterChance.DecimalPlaces = 2;
             this.nudChatterChance.Increment = new decimal(new int[] {
             1,

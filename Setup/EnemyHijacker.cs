@@ -5,6 +5,10 @@ using System.Collections.Concurrent;
 using Microsoft.Extensions.Logging;
 using System.Collections;
 using TwitchLib.Client.Models;
+using static CobaltChatCore.Configuration;
+using static CobaltChatCore.CommandManager;
+using TwitchLib.Client.Events;
+using System.Collections.Immutable;
 
 namespace CobaltChatCore
 {
@@ -77,19 +81,95 @@ namespace CobaltChatCore
         public void Setup(ILogger logger)
         {
             Logger = logger;
+            TwitchChat.Client.OnMessageReceived += OnChatMessageReceived;
+
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<State>(CobaltChatCoreManifest.StartCombatEvent, (s) => ReplaceEnemyWithChatter(s));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => OnStateEnterClearCharacter(s));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.GRenderEvent, (s) => OnGRenderMakeEnemyASAP());
             CobaltChatCoreManifest.EventHub.ConnectToEvent<Combat>(CobaltChatCoreManifest.UpdateCombatEvent, (c) => OnCombatUpdate(c));
 
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<ChatMessage>(CobaltChatCoreManifest.ChatterShoutEvent, (cm) => ReceiveNewShout(cm));
-
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.SelectChatterEvent, (s) => CurrentCombatant = s);
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.ChatterJoinsEvent, (s) => Task.Run(async () => await GetChatterTextureStream(s)));
+            //CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.SelectEnemyChatterEvent, (s) => CurrentCombatant = s);
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<ChatMessage>(CobaltChatCoreManifest.ChatterJoinsEvent, (cm) => Task.Run(async () => await GetChatterTextureStream(cm.DisplayName)));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.ClearChattersEvent, (s) => ClearIncomingQueue());
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.ChatterEjectedEvent, (s) => OnChatterEjected(s));
         }
 
-        
+        public void OnChatMessageReceived(object sender, OnMessageReceivedArgs e)
+        {
+            
+            if (CurrentCombatant == e.ChatMessage.DisplayName && Configuration.Instance.AllowChatterShoutsAsEnemies)
+                ReceiveNewShout(e.ChatMessage);
+        }
+
+        void ReplaceEnemyWithChatter(State state)
+        {
+            Combat c = (Combat)state.route;
+            AI ai = c?.otherShip?.ai;
+
+            if (ai == null || ai.Name() == "FakeCombat")
+            {
+                Logger.LogError("Ignoring Fake Combat");
+                return;
+            }
+
+            if (state.route == null || state.route is not Combat || state.map?.GetCurrent()?.contents is not MapBattle)
+            {
+                Logger.LogError("Empty combat passed or not a combat!");
+                return;
+            }
+
+            var combatType = ((MapBattle)state.map.GetCurrent().contents).battleType;
+
+            if (!Configuration.Instance.AllowedEncounterOverrides.Contains(combatType))
+            {
+                Logger.LogInformation($"Combat type {combatType} not allowed for override!");
+                return;
+            }
+
+            if (ai.character.type == CobaltChatCoreManifest.TwitchCharacterName + "Deck")
+            {
+                Logger.LogInformation("Chatter already present");
+                return;
+            }
+
+            CurrentCombatant = SelectChatter();
+            if (CurrentCombatant != null)
+            {
+                //we put out a signal here to make sure only valid fights are replaced
+                CobaltChatCoreManifest.EventHub.SignalEvent<string>(CobaltChatCoreManifest.SelectEnemyChatterEvent, CurrentCombatant);
+                Logger.LogInformation($"Selected {CurrentCombatant} as next enemy");
+                
+            }
+            else
+                Logger.LogInformation("No chatters or no luck this time. No replacement done");
+        }
+
+        string SelectChatter()
+        {
+            var list = ChattersAvailable.ToImmutableDictionary();
+            Random random = new Random();
+            double randomNumber = random.NextDouble();
+
+            if (list.Count > 0 && randomNumber < Configuration.Instance.ChatterEnemyChance)
+            {
+                string chosenOne = null;
+                switch (Configuration.Instance.EnemyChatterChoiceMode)
+                {
+                    case ChatterChoiceMode.LEAST_SELECTED:
+                        chosenOne = list.Where(kvp => kvp.Value < Configuration.Instance.ChatterPickLimit).OrderBy(kvp => kvp.Value).First().Key;
+                        break;
+                    case ChatterChoiceMode.RANDOM:
+                        chosenOne = list.Keys.ElementAt(random.Next(0, list.Keys.Count()));
+                        break;
+                }
+                return chosenOne;
+            }
+
+            else
+                return null;
+        }
+
+
         /// <summary>
         /// Called from an async thread that grabs the texxture stream from the internet
         /// </summary>
@@ -151,15 +231,15 @@ namespace CobaltChatCore
             DB.currentLocale.strings["char." + CobaltChatCoreManifest.TwitchCharacterName + "Deck"] = CurrentCombatant;
         }
 
-        void OnChatterEjected(string name)
+        void OnChatterEjected(string s)
         {
-            Logger.LogInformation($"Ejecting {name}");
-            if (CurrentCombatant == name)
+            if (s == null || CurrentCombatant == s)
             {
+                TwitchChat.SendMessageToChat(Configuration.Instance.ChatterEjectText.Replace("{User}", CurrentCombatant));
+                Logger.LogInformation($"Ejecting {CurrentCombatant}");
                 CurrentCombatant = FallbackCharacterName;
                 forceDefault = true;
-            }
-                
+            }       
         }
 
         //copypasta from the SpriteExtender in modloader
@@ -195,12 +275,9 @@ namespace CobaltChatCore
 
             if (combat.otherShip?.ai?.character == TwitchEnemyCharacter && incomingShouts.TryDequeue(out string shout) &&
                 Configuration.Instance.AllowChatterShoutsAsEnemies)
-            {
-                
+            {              
                 DB.currentLocale.strings[CobaltChatCoreManifest.TwitchCharacterShout] = shout;
                 TwitchEnemyCharacter.shout = new Shout() { who = TwitchEnemyCharacter.type, key = CobaltChatCoreManifest.TwitchCharacterShout };
-                
-                
             }
 
             //don't replace character already replaced or no character (fake combat)

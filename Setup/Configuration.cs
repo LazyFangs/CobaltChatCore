@@ -54,11 +54,14 @@ namespace CobaltChatCore
         public string ChatterEjectCommand { get; set; } = "eject";
         public string ChatterBanCommand { get; set; } = "ban";
         public string ChatterUnbanCommand { get; set; } = "unban";
+        public string ChatterDroneMoveLeftCommand { get; set; } = "left";
+        public string ChatterDroneMoveRightCommand { get; set; } = "right";
+        public string ChatterDroneShootCommand { get; set; } = "shoot";
         public bool JoinCommandEnabled { get; set; } = true;
         
         #endregion
         #region Battle Join Parameters
-        public float ChatterChance { get; set; } = 1;//0 - 100% chance
+        public float ChatterEnemyChance { get; set; } = 1;//0 - 100% chance
         public List<BattleType> AllowedEncounterOverrides { get; set; } = new List<BattleType> {BattleType.Normal, BattleType.Easy};
         /// <summary>
         /// How many times a player can join between they no longer show up? Anything bigger than 1000 is infinity
@@ -70,7 +73,7 @@ namespace CobaltChatCore
         /// Least Selected is like queue, but randoms the people who were featured the least
         /// </summary>
         public enum ChatterChoiceMode { LEAST_SELECTED, RANDOM }
-        public ChatterChoiceMode ChoiceMode { get; set; } = ChatterChoiceMode.LEAST_SELECTED;
+        public ChatterChoiceMode EnemyChatterChoiceMode { get; set; } = ChatterChoiceMode.LEAST_SELECTED;
         public bool AllowChatterPicturesAsEnemies { get; set; } = true;
         public bool AllowChatterShoutsAsEnemies { get; set; } = true;
         /// <summary>
@@ -78,7 +81,13 @@ namespace CobaltChatCore
         /// </summary>
         public enum EncountersResetCondition { NEVER }
         public EncountersResetCondition ResetCondition { get; set; } = EncountersResetCondition.NEVER;
-        
+
+        #endregion
+        #region Drone Hijack Parameters
+        public bool AllowChattersAsDrones { get; set; } = true;
+        public bool AllowChatterDronesMove { get; set; } = true;
+        public bool AllowChatterDronesShoot { get; set; } = true;
+        public float ChatterDroneChance { get; set; } = 1;//0 - 100% chance
         #endregion
 
         public static Configuration Instance { get; private set; }
