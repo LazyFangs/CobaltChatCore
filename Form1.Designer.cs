@@ -113,6 +113,20 @@ namespace CobaltChatCore
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.textBox17 = new System.Windows.Forms.TextBox();
             this.textBox18 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.textBox19 = new System.Windows.Forms.TextBox();
             this.MainTabControl.SuspendLayout();
             this.tpCCC.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -124,6 +138,9 @@ namespace CobaltChatCore
             this.flowLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudChatterPickLimit)).BeginInit();
             this.flowLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -134,7 +151,7 @@ namespace CobaltChatCore
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(5);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(800, 485);
+            this.MainTabControl.Size = new System.Drawing.Size(800, 450);
             this.MainTabControl.TabIndex = 1;
             // 
             // tpCCC
@@ -143,7 +160,7 @@ namespace CobaltChatCore
             this.tpCCC.Controls.Add(this.tableLayoutPanel2);
             this.tpCCC.Location = new System.Drawing.Point(4, 24);
             this.tpCCC.Name = "tpCCC";
-            this.tpCCC.Size = new System.Drawing.Size(792, 457);
+            this.tpCCC.Size = new System.Drawing.Size(792, 422);
             this.tpCCC.TabIndex = 6;
             this.tpCCC.Text = "CobaltChatCore";
             this.tpCCC.UseVisualStyleBackColor = true;
@@ -151,10 +168,10 @@ namespace CobaltChatCore
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label24, 0, 29);
-            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 20);
+            this.tableLayoutPanel2.Controls.Add(this.label24, 0, 36);
+            this.tableLayoutPanel2.Controls.Add(this.label16, 0, 26);
             this.tableLayoutPanel2.Controls.Add(this.label11, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.nudChatterChance, 1, 17);
             this.tableLayoutPanel2.Controls.Add(this.textBox3, 1, 4);
@@ -183,37 +200,51 @@ namespace CobaltChatCore
             this.tableLayoutPanel2.Controls.Add(this.textBox4, 1, 12);
             this.tableLayoutPanel2.Controls.Add(this.textBox5, 1, 11);
             this.tableLayoutPanel2.Controls.Add(this.textBox6, 1, 13);
-            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 21);
-            this.tableLayoutPanel2.Controls.Add(this.label18, 0, 22);
-            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 23);
-            this.tableLayoutPanel2.Controls.Add(this.label23, 0, 24);
-            this.tableLayoutPanel2.Controls.Add(this.label21, 0, 25);
-            this.tableLayoutPanel2.Controls.Add(this.label22, 0, 26);
-            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 27);
-            this.tableLayoutPanel2.Controls.Add(this.label25, 0, 28);
-            this.tableLayoutPanel2.Controls.Add(this.label26, 0, 30);
-            this.tableLayoutPanel2.Controls.Add(this.label27, 0, 31);
-            this.tableLayoutPanel2.Controls.Add(this.label28, 0, 32);
+            this.tableLayoutPanel2.Controls.Add(this.label17, 0, 27);
+            this.tableLayoutPanel2.Controls.Add(this.label18, 0, 28);
+            this.tableLayoutPanel2.Controls.Add(this.label19, 0, 29);
+            this.tableLayoutPanel2.Controls.Add(this.label23, 0, 30);
+            this.tableLayoutPanel2.Controls.Add(this.label21, 0, 31);
+            this.tableLayoutPanel2.Controls.Add(this.label22, 0, 32);
+            this.tableLayoutPanel2.Controls.Add(this.label20, 0, 33);
+            this.tableLayoutPanel2.Controls.Add(this.label25, 0, 34);
+            this.tableLayoutPanel2.Controls.Add(this.label26, 0, 37);
+            this.tableLayoutPanel2.Controls.Add(this.label27, 0, 38);
+            this.tableLayoutPanel2.Controls.Add(this.label28, 0, 39);
             this.tableLayoutPanel2.Controls.Add(this.label29, 0, 8);
             this.tableLayoutPanel2.Controls.Add(this.label30, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.checkBox1, 1, 8);
             this.tableLayoutPanel2.Controls.Add(this.checkBox2, 1, 9);
-            this.tableLayoutPanel2.Controls.Add(this.textBox7, 1, 21);
-            this.tableLayoutPanel2.Controls.Add(this.textBox8, 1, 23);
-            this.tableLayoutPanel2.Controls.Add(this.textBox9, 1, 25);
-            this.tableLayoutPanel2.Controls.Add(this.textBox10, 1, 27);
-            this.tableLayoutPanel2.Controls.Add(this.textBox11, 1, 29);
-            this.tableLayoutPanel2.Controls.Add(this.textBox12, 1, 31);
-            this.tableLayoutPanel2.Controls.Add(this.textBox13, 1, 22);
-            this.tableLayoutPanel2.Controls.Add(this.textBox14, 1, 24);
-            this.tableLayoutPanel2.Controls.Add(this.textBox15, 1, 26);
-            this.tableLayoutPanel2.Controls.Add(this.textBox16, 1, 28);
-            this.tableLayoutPanel2.Controls.Add(this.textBox17, 1, 30);
-            this.tableLayoutPanel2.Controls.Add(this.textBox18, 1, 32);
+            this.tableLayoutPanel2.Controls.Add(this.textBox7, 1, 27);
+            this.tableLayoutPanel2.Controls.Add(this.textBox8, 1, 29);
+            this.tableLayoutPanel2.Controls.Add(this.textBox9, 1, 31);
+            this.tableLayoutPanel2.Controls.Add(this.textBox10, 1, 33);
+            this.tableLayoutPanel2.Controls.Add(this.textBox11, 1, 36);
+            this.tableLayoutPanel2.Controls.Add(this.textBox12, 1, 38);
+            this.tableLayoutPanel2.Controls.Add(this.textBox13, 1, 28);
+            this.tableLayoutPanel2.Controls.Add(this.textBox14, 1, 30);
+            this.tableLayoutPanel2.Controls.Add(this.textBox15, 1, 32);
+            this.tableLayoutPanel2.Controls.Add(this.textBox16, 1, 34);
+            this.tableLayoutPanel2.Controls.Add(this.textBox17, 1, 37);
+            this.tableLayoutPanel2.Controls.Add(this.textBox18, 1, 39);
+            this.tableLayoutPanel2.Controls.Add(this.button1, 0, 41);
+            this.tableLayoutPanel2.Controls.Add(this.label31, 0, 20);
+            this.tableLayoutPanel2.Controls.Add(this.label32, 0, 21);
+            this.tableLayoutPanel2.Controls.Add(this.label33, 0, 22);
+            this.tableLayoutPanel2.Controls.Add(this.label34, 0, 23);
+            this.tableLayoutPanel2.Controls.Add(this.label35, 0, 24);
+            this.tableLayoutPanel2.Controls.Add(this.label36, 0, 25);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDown1, 1, 25);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDown2, 1, 23);
+            this.tableLayoutPanel2.Controls.Add(this.numericUpDown3, 1, 24);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox3, 1, 21);
+            this.tableLayoutPanel2.Controls.Add(this.checkBox4, 1, 22);
+            this.tableLayoutPanel2.Controls.Add(this.label37, 0, 35);
+            this.tableLayoutPanel2.Controls.Add(this.textBox19, 1, 35);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 35;
+            this.tableLayoutPanel2.RowCount = 44;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -248,17 +279,26 @@ namespace CobaltChatCore
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 13F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 1119);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 1356);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label24
             // 
             this.label24.AutoSize = true;
             this.label24.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label24.Location = new System.Drawing.Point(3, 896);
+            this.label24.Location = new System.Drawing.Point(3, 1105);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(142, 31);
+            this.label24.Size = new System.Drawing.Size(194, 31);
             this.label24.TabIndex = 41;
             this.label24.Text = "Ban Chatter command";
             this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -269,7 +309,7 @@ namespace CobaltChatCore
             this.tableLayoutPanel2.SetColumnSpan(this.label16, 2);
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label16.Location = new System.Drawing.Point(3, 575);
+            this.label16.Location = new System.Drawing.Point(3, 740);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(769, 21);
             this.label16.TabIndex = 33;
@@ -282,7 +322,7 @@ namespace CobaltChatCore
             this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label11.Location = new System.Drawing.Point(3, 167);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(142, 20);
+            this.label11.Size = new System.Drawing.Size(194, 20);
             this.label11.TabIndex = 23;
             this.label11.Text = "Enabled";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -296,7 +336,7 @@ namespace CobaltChatCore
             0,
             0,
             131072});
-            this.nudChatterChance.Location = new System.Drawing.Point(151, 520);
+            this.nudChatterChance.Location = new System.Drawing.Point(203, 520);
             this.nudChatterChance.Maximum = new decimal(new int[] {
             1,
             0,
@@ -319,7 +359,7 @@ namespace CobaltChatCore
             // 
             this.textBox3.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "CommandSignal", true));
             this.textBox3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.textBox3.Location = new System.Drawing.Point(151, 120);
+            this.textBox3.Location = new System.Drawing.Point(203, 120);
             this.textBox3.MaxLength = 1;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(21, 23);
@@ -332,7 +372,7 @@ namespace CobaltChatCore
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label8.Location = new System.Drawing.Point(3, 117);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(142, 29);
+            this.label8.Size = new System.Drawing.Size(194, 29);
             this.label8.TabIndex = 15;
             this.label8.Text = "Command Character";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -343,7 +383,7 @@ namespace CobaltChatCore
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(142, 32);
+            this.label1.Size = new System.Drawing.Size(194, 32);
             this.label1.TabIndex = 1;
             this.label1.Text = "Channel Name*";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -353,10 +393,10 @@ namespace CobaltChatCore
             this.flowLayoutPanel1.Controls.Add(this.btnAuthorize);
             this.flowLayoutPanel1.Controls.Add(this.lblAutorizationStatus);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(148, 53);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(200, 53);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(627, 35);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(575, 35);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // btnAuthorize
@@ -388,7 +428,7 @@ namespace CobaltChatCore
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(3, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(142, 35);
+            this.label2.Size = new System.Drawing.Size(194, 35);
             this.label2.TabIndex = 2;
             this.label2.Text = "Twitch Connection*";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -412,7 +452,7 @@ namespace CobaltChatCore
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 88);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(142, 29);
+            this.label4.Size = new System.Drawing.Size(194, 29);
             this.label4.TabIndex = 5;
             this.label4.Text = "Localhost Port*";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -422,10 +462,10 @@ namespace CobaltChatCore
             this.flowLayoutPanel2.Controls.Add(this.nudPort);
             this.flowLayoutPanel2.Controls.Add(this.lblPortValid);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(148, 88);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(200, 88);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(621, 29);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(529, 29);
             this.flowLayoutPanel2.TabIndex = 8;
             // 
             // nudPort
@@ -463,10 +503,10 @@ namespace CobaltChatCore
             this.flowLayoutPanel3.Controls.Add(this.tbChannelName);
             this.flowLayoutPanel3.Controls.Add(this.lblChannelNameValid);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(148, 21);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(200, 21);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(627, 32);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(575, 32);
             this.flowLayoutPanel3.TabIndex = 9;
             // 
             // tbChannelName
@@ -507,7 +547,7 @@ namespace CobaltChatCore
             // textBox1
             // 
             this.textBox1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "JoinCommand", true));
-            this.textBox1.Location = new System.Drawing.Point(151, 190);
+            this.textBox1.Location = new System.Drawing.Point(203, 190);
             this.textBox1.MaxLength = 50;
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -521,19 +561,17 @@ namespace CobaltChatCore
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label7.Location = new System.Drawing.Point(3, 187);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(142, 31);
+            this.label7.Size = new System.Drawing.Size(194, 31);
             this.label7.TabIndex = 13;
             this.label7.Text = "Command";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
-            this.label10.AutoSize = true;
             this.label10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label10.Location = new System.Drawing.Point(3, 472);
-            this.label10.MaximumSize = new System.Drawing.Size(100, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(100, 45);
+            this.label10.Size = new System.Drawing.Size(194, 45);
             this.label10.TabIndex = 19;
             this.label10.Text = "How many times can a chatter be picked?";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -541,7 +579,7 @@ namespace CobaltChatCore
             // nudChatterPickLimit
             // 
             this.nudChatterPickLimit.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterPickLimit", true));
-            this.nudChatterPickLimit.Location = new System.Drawing.Point(151, 475);
+            this.nudChatterPickLimit.Location = new System.Drawing.Point(203, 475);
             this.nudChatterPickLimit.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -562,7 +600,7 @@ namespace CobaltChatCore
             this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label9.Location = new System.Drawing.Point(3, 517);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(142, 29);
+            this.label9.Size = new System.Drawing.Size(194, 29);
             this.label9.TabIndex = 17;
             this.label9.Text = "Chance to appear (0-1)";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -574,7 +612,7 @@ namespace CobaltChatCore
             this.cbJoinEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbJoinEnabled.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "JoinCommandEnabled", true));
             this.cbJoinEnabled.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cbJoinEnabled.Location = new System.Drawing.Point(151, 170);
+            this.cbJoinEnabled.Location = new System.Drawing.Point(203, 170);
             this.cbJoinEnabled.Name = "cbJoinEnabled";
             this.cbJoinEnabled.Size = new System.Drawing.Size(15, 14);
             this.cbJoinEnabled.TabIndex = 24;
@@ -586,7 +624,7 @@ namespace CobaltChatCore
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Location = new System.Drawing.Point(3, 546);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(142, 29);
+            this.label12.Size = new System.Drawing.Size(194, 29);
             this.label12.TabIndex = 25;
             this.label12.Text = "Allowed encounter types";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -597,10 +635,10 @@ namespace CobaltChatCore
             this.flowLayoutPanel4.Controls.Add(this.cbEliteBattleType);
             this.flowLayoutPanel4.Controls.Add(this.cbBossBattleType);
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(148, 546);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(200, 546);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(627, 29);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(575, 29);
             this.flowLayoutPanel4.TabIndex = 26;
             // 
             // cbNormalBattleType
@@ -653,7 +691,7 @@ namespace CobaltChatCore
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label6.Location = new System.Drawing.Point(3, 296);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(142, 44);
+            this.label6.Size = new System.Drawing.Size(194, 44);
             this.label6.TabIndex = 11;
             this.label6.Text = "Reminder Text";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -662,10 +700,10 @@ namespace CobaltChatCore
             // 
             this.textBox2.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "RemindersText", true));
             this.textBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox2.Location = new System.Drawing.Point(151, 299);
+            this.textBox2.Location = new System.Drawing.Point(203, 299);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(621, 38);
+            this.textBox2.Size = new System.Drawing.Size(569, 38);
             this.textBox2.TabIndex = 14;
             this.textBox2.Text = resources.GetString("textBox2.Text");
             // 
@@ -675,7 +713,7 @@ namespace CobaltChatCore
             this.label13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label13.Location = new System.Drawing.Point(3, 340);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(142, 44);
+            this.label13.Size = new System.Drawing.Size(194, 44);
             this.label13.TabIndex = 27;
             this.label13.Text = "Chatter joined text";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -686,7 +724,7 @@ namespace CobaltChatCore
             this.label14.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label14.Location = new System.Drawing.Point(3, 384);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(142, 44);
+            this.label14.Size = new System.Drawing.Size(194, 44);
             this.label14.TabIndex = 28;
             this.label14.Text = "Queue closed text";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -697,7 +735,7 @@ namespace CobaltChatCore
             this.label15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label15.Location = new System.Drawing.Point(3, 428);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(142, 44);
+            this.label15.Size = new System.Drawing.Size(194, 44);
             this.label15.TabIndex = 29;
             this.label15.Text = "Chatter banned text";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -706,10 +744,10 @@ namespace CobaltChatCore
             // 
             this.textBox4.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "JoinFailedQueueClosedText", true));
             this.textBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox4.Location = new System.Drawing.Point(151, 387);
+            this.textBox4.Location = new System.Drawing.Point(203, 387);
             this.textBox4.Multiline = true;
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(621, 38);
+            this.textBox4.Size = new System.Drawing.Size(569, 38);
             this.textBox4.TabIndex = 30;
             this.textBox4.Text = "Type {JoinCommand} to potentially become an enemy in the next fight!";
             // 
@@ -717,10 +755,10 @@ namespace CobaltChatCore
             // 
             this.textBox5.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterJoinedText", true));
             this.textBox5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox5.Location = new System.Drawing.Point(151, 343);
+            this.textBox5.Location = new System.Drawing.Point(203, 343);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(621, 38);
+            this.textBox5.Size = new System.Drawing.Size(569, 38);
             this.textBox5.TabIndex = 31;
             this.textBox5.Text = "Type {JoinCommand} to potentially become an enemy in the next fight!";
             // 
@@ -728,10 +766,10 @@ namespace CobaltChatCore
             // 
             this.textBox6.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "JoinFailedBannedText", true));
             this.textBox6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox6.Location = new System.Drawing.Point(151, 431);
+            this.textBox6.Location = new System.Drawing.Point(203, 431);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(621, 38);
+            this.textBox6.Size = new System.Drawing.Size(569, 38);
             this.textBox6.TabIndex = 32;
             this.textBox6.Text = "Type {JoinCommand} to potentially become an enemy in the next fight!";
             // 
@@ -739,9 +777,9 @@ namespace CobaltChatCore
             // 
             this.label17.AutoSize = true;
             this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label17.Location = new System.Drawing.Point(3, 596);
+            this.label17.Location = new System.Drawing.Point(3, 761);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(142, 31);
+            this.label17.Size = new System.Drawing.Size(194, 31);
             this.label17.TabIndex = 34;
             this.label17.Text = "Clear Queue command";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -750,9 +788,9 @@ namespace CobaltChatCore
             // 
             this.label18.AutoSize = true;
             this.label18.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label18.Location = new System.Drawing.Point(3, 627);
+            this.label18.Location = new System.Drawing.Point(3, 792);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(142, 44);
+            this.label18.Size = new System.Drawing.Size(194, 44);
             this.label18.TabIndex = 35;
             this.label18.Text = "Clear Queue text";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -761,9 +799,9 @@ namespace CobaltChatCore
             // 
             this.label19.AutoSize = true;
             this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label19.Location = new System.Drawing.Point(3, 671);
+            this.label19.Location = new System.Drawing.Point(3, 836);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(142, 31);
+            this.label19.Size = new System.Drawing.Size(194, 31);
             this.label19.TabIndex = 36;
             this.label19.Text = "Close Queue command";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -772,9 +810,9 @@ namespace CobaltChatCore
             // 
             this.label23.AutoSize = true;
             this.label23.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label23.Location = new System.Drawing.Point(3, 702);
+            this.label23.Location = new System.Drawing.Point(3, 867);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(142, 44);
+            this.label23.Size = new System.Drawing.Size(194, 44);
             this.label23.TabIndex = 40;
             this.label23.Text = "Close Queue text";
             this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -783,9 +821,9 @@ namespace CobaltChatCore
             // 
             this.label21.AutoSize = true;
             this.label21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label21.Location = new System.Drawing.Point(3, 746);
+            this.label21.Location = new System.Drawing.Point(3, 911);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(142, 31);
+            this.label21.Size = new System.Drawing.Size(194, 31);
             this.label21.TabIndex = 38;
             this.label21.Text = "Open Queue command";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -794,9 +832,9 @@ namespace CobaltChatCore
             // 
             this.label22.AutoSize = true;
             this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label22.Location = new System.Drawing.Point(3, 777);
+            this.label22.Location = new System.Drawing.Point(3, 942);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(142, 44);
+            this.label22.Size = new System.Drawing.Size(194, 44);
             this.label22.TabIndex = 39;
             this.label22.Text = "Open Queue text";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -805,9 +843,9 @@ namespace CobaltChatCore
             // 
             this.label20.AutoSize = true;
             this.label20.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label20.Location = new System.Drawing.Point(3, 821);
+            this.label20.Location = new System.Drawing.Point(3, 986);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(142, 31);
+            this.label20.Size = new System.Drawing.Size(194, 31);
             this.label20.TabIndex = 37;
             this.label20.Text = "Eject Chatter command";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -816,9 +854,9 @@ namespace CobaltChatCore
             // 
             this.label25.AutoSize = true;
             this.label25.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label25.Location = new System.Drawing.Point(3, 852);
+            this.label25.Location = new System.Drawing.Point(3, 1017);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(142, 44);
+            this.label25.Size = new System.Drawing.Size(194, 44);
             this.label25.TabIndex = 42;
             this.label25.Text = "Eject Chatter text";
             this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -827,9 +865,9 @@ namespace CobaltChatCore
             // 
             this.label26.AutoSize = true;
             this.label26.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label26.Location = new System.Drawing.Point(3, 927);
+            this.label26.Location = new System.Drawing.Point(3, 1136);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(142, 44);
+            this.label26.Size = new System.Drawing.Size(194, 44);
             this.label26.TabIndex = 43;
             this.label26.Text = "Ban Chatter text";
             this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -838,9 +876,9 @@ namespace CobaltChatCore
             // 
             this.label27.AutoSize = true;
             this.label27.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label27.Location = new System.Drawing.Point(3, 971);
+            this.label27.Location = new System.Drawing.Point(3, 1180);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(142, 31);
+            this.label27.Size = new System.Drawing.Size(194, 31);
             this.label27.TabIndex = 44;
             this.label27.Text = "Unban Chatter command";
             this.label27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -849,9 +887,9 @@ namespace CobaltChatCore
             // 
             this.label28.AutoSize = true;
             this.label28.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label28.Location = new System.Drawing.Point(3, 1002);
+            this.label28.Location = new System.Drawing.Point(3, 1211);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(142, 44);
+            this.label28.Size = new System.Drawing.Size(194, 44);
             this.label28.TabIndex = 45;
             this.label28.Text = "Unban Chatter text";
             this.label28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -861,7 +899,7 @@ namespace CobaltChatCore
             this.label29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label29.Location = new System.Drawing.Point(3, 218);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(142, 40);
+            this.label29.Size = new System.Drawing.Size(194, 40);
             this.label29.TabIndex = 46;
             this.label29.Text = "Allow chatter profile pictures as enemies";
             this.label29.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -871,7 +909,7 @@ namespace CobaltChatCore
             this.label30.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label30.Location = new System.Drawing.Point(3, 258);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(142, 38);
+            this.label30.Size = new System.Drawing.Size(194, 38);
             this.label30.TabIndex = 47;
             this.label30.Text = "Allow chatters to speak as enemies";
             this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -883,7 +921,7 @@ namespace CobaltChatCore
             this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AllowChatterPicturesAsEnemies", true));
             this.checkBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBox1.Location = new System.Drawing.Point(151, 221);
+            this.checkBox1.Location = new System.Drawing.Point(203, 221);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(15, 34);
             this.checkBox1.TabIndex = 48;
@@ -896,7 +934,7 @@ namespace CobaltChatCore
             this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox2.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AllowChatterShoutsAsEnemies", true));
             this.checkBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBox2.Location = new System.Drawing.Point(151, 261);
+            this.checkBox2.Location = new System.Drawing.Point(203, 261);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(15, 32);
             this.checkBox2.TabIndex = 49;
@@ -905,7 +943,7 @@ namespace CobaltChatCore
             // textBox7
             // 
             this.textBox7.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterListClearCommand", true));
-            this.textBox7.Location = new System.Drawing.Point(151, 599);
+            this.textBox7.Location = new System.Drawing.Point(203, 764);
             this.textBox7.MaxLength = 50;
             this.textBox7.Multiline = true;
             this.textBox7.Name = "textBox7";
@@ -916,7 +954,7 @@ namespace CobaltChatCore
             // textBox8
             // 
             this.textBox8.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "CloseQueueCommand", true));
-            this.textBox8.Location = new System.Drawing.Point(151, 674);
+            this.textBox8.Location = new System.Drawing.Point(203, 839);
             this.textBox8.MaxLength = 50;
             this.textBox8.Multiline = true;
             this.textBox8.Name = "textBox8";
@@ -927,7 +965,7 @@ namespace CobaltChatCore
             // textBox9
             // 
             this.textBox9.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "OpenQueueCommand", true));
-            this.textBox9.Location = new System.Drawing.Point(151, 749);
+            this.textBox9.Location = new System.Drawing.Point(203, 914);
             this.textBox9.MaxLength = 50;
             this.textBox9.Multiline = true;
             this.textBox9.Name = "textBox9";
@@ -938,7 +976,7 @@ namespace CobaltChatCore
             // textBox10
             // 
             this.textBox10.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterEjectCommand", true));
-            this.textBox10.Location = new System.Drawing.Point(151, 824);
+            this.textBox10.Location = new System.Drawing.Point(203, 989);
             this.textBox10.MaxLength = 50;
             this.textBox10.Multiline = true;
             this.textBox10.Name = "textBox10";
@@ -949,7 +987,7 @@ namespace CobaltChatCore
             // textBox11
             // 
             this.textBox11.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterBanCommand", true));
-            this.textBox11.Location = new System.Drawing.Point(151, 899);
+            this.textBox11.Location = new System.Drawing.Point(203, 1108);
             this.textBox11.MaxLength = 50;
             this.textBox11.Multiline = true;
             this.textBox11.Name = "textBox11";
@@ -960,7 +998,7 @@ namespace CobaltChatCore
             // textBox12
             // 
             this.textBox12.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterUnbanCommand", true));
-            this.textBox12.Location = new System.Drawing.Point(151, 974);
+            this.textBox12.Location = new System.Drawing.Point(203, 1183);
             this.textBox12.MaxLength = 50;
             this.textBox12.Multiline = true;
             this.textBox12.Name = "textBox12";
@@ -972,67 +1010,252 @@ namespace CobaltChatCore
             // 
             this.textBox13.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "QueueClearedText", true));
             this.textBox13.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox13.Location = new System.Drawing.Point(151, 630);
+            this.textBox13.Location = new System.Drawing.Point(203, 795);
             this.textBox13.Multiline = true;
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(621, 38);
+            this.textBox13.Size = new System.Drawing.Size(569, 38);
             this.textBox13.TabIndex = 56;
             // 
             // textBox14
             // 
             this.textBox14.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "QueueClosedText", true));
             this.textBox14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox14.Location = new System.Drawing.Point(151, 705);
+            this.textBox14.Location = new System.Drawing.Point(203, 870);
             this.textBox14.Multiline = true;
             this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(621, 38);
+            this.textBox14.Size = new System.Drawing.Size(569, 38);
             this.textBox14.TabIndex = 57;
             // 
             // textBox15
             // 
             this.textBox15.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "QueueOpenText", true));
             this.textBox15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox15.Location = new System.Drawing.Point(151, 780);
+            this.textBox15.Location = new System.Drawing.Point(203, 945);
             this.textBox15.Multiline = true;
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(621, 38);
+            this.textBox15.Size = new System.Drawing.Size(569, 38);
             this.textBox15.TabIndex = 58;
             // 
             // textBox16
             // 
             this.textBox16.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterEjectText", true));
             this.textBox16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox16.Location = new System.Drawing.Point(151, 855);
+            this.textBox16.Location = new System.Drawing.Point(203, 1020);
             this.textBox16.Multiline = true;
             this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(621, 38);
+            this.textBox16.Size = new System.Drawing.Size(569, 38);
             this.textBox16.TabIndex = 59;
             // 
             // textBox17
             // 
             this.textBox17.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterBanText", true));
             this.textBox17.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox17.Location = new System.Drawing.Point(151, 930);
+            this.textBox17.Location = new System.Drawing.Point(203, 1139);
             this.textBox17.Multiline = true;
             this.textBox17.Name = "textBox17";
-            this.textBox17.Size = new System.Drawing.Size(621, 38);
+            this.textBox17.Size = new System.Drawing.Size(569, 38);
             this.textBox17.TabIndex = 60;
             // 
             // textBox18
             // 
             this.textBox18.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterUnbanText", true));
             this.textBox18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox18.Location = new System.Drawing.Point(151, 1005);
+            this.textBox18.Location = new System.Drawing.Point(203, 1214);
             this.textBox18.Multiline = true;
             this.textBox18.Name = "textBox18";
-            this.textBox18.Size = new System.Drawing.Size(621, 38);
+            this.textBox18.Size = new System.Drawing.Size(569, 38);
             this.textBox18.TabIndex = 61;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.tableLayoutPanel2.SetColumnSpan(this.button1, 2);
+            this.button1.Location = new System.Drawing.Point(336, 1258);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 35);
+            this.button1.TabIndex = 62;
+            this.button1.Text = "SAVE";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.tableLayoutPanel2.SetColumnSpan(this.label31, 2);
+            this.label31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label31.Location = new System.Drawing.Point(3, 575);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(769, 15);
+            this.label31.TabIndex = 63;
+            this.label31.Text = "DRONES (JOIN COMMAND)";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label32.Location = new System.Drawing.Point(3, 590);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(194, 30);
+            this.label32.TabIndex = 64;
+            this.label32.Text = "Allow chatters to become player drones";
+            this.label32.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label33.Location = new System.Drawing.Point(3, 620);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(194, 30);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "Allow chatters to become enemy drones";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label34.Location = new System.Drawing.Point(3, 650);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(194, 30);
+            this.label34.TabIndex = 66;
+            this.label34.Text = "How many times a chatter drone can move?";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label35.Location = new System.Drawing.Point(3, 680);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(194, 30);
+            this.label35.TabIndex = 67;
+            this.label35.Text = "How many times a chatter drone can shoot?";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label36.Location = new System.Drawing.Point(3, 710);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(194, 30);
+            this.label36.TabIndex = 68;
+            this.label36.Text = "Change for chatter to become drone (0-1)";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterDroneChance", true));
+            this.numericUpDown1.DecimalPlaces = 2;
+            this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown1.Location = new System.Drawing.Point(203, 713);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown1.TabIndex = 69;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterDroneMoves", true));
+            this.numericUpDown2.Location = new System.Drawing.Point(203, 653);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown2.TabIndex = 70;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.configurationBindingSource, "ChatterDroneShots", true));
+            this.numericUpDown3.Location = new System.Drawing.Point(203, 683);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown3.TabIndex = 71;
+            this.numericUpDown3.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Checked = true;
+            this.checkBox3.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox3.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AllowChattersAsDrones", true));
+            this.checkBox3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.checkBox3.Location = new System.Drawing.Point(203, 593);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(15, 24);
+            this.checkBox3.TabIndex = 72;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Checked = true;
+            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox4.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.configurationBindingSource, "AllowChatterDroneEnemies", true));
+            this.checkBox4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.checkBox4.Location = new System.Drawing.Point(203, 623);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(15, 24);
+            this.checkBox4.TabIndex = 73;
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label37.Location = new System.Drawing.Point(3, 1061);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(194, 44);
+            this.label37.TabIndex = 74;
+            this.label37.Text = "Eject Drone Chatter text";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBox19
+            // 
+            this.textBox19.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.configurationBindingSource, "ChatterDroneEjectText", true));
+            this.textBox19.Location = new System.Drawing.Point(203, 1064);
+            this.textBox19.Multiline = true;
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(569, 38);
+            this.textBox19.TabIndex = 75;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.MainTabControl);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -1052,6 +1275,9 @@ namespace CobaltChatCore
             ((System.ComponentModel.ISupportInitialize)(this.nudChatterPickLimit)).EndInit();
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1081,7 +1307,6 @@ namespace CobaltChatCore
         private Label label6;
         private Label label7;
         private TextBox textBox2;
-        private Label label10;
         private NumericUpDown nudPort;
         private NumericUpDown nudChatterPickLimit;
         private NumericUpDown nudChatterChance;
@@ -1128,5 +1353,20 @@ namespace CobaltChatCore
         private TextBox textBox16;
         private TextBox textBox17;
         private TextBox textBox18;
+        private Button button1;
+        private Label label31;
+        private Label label32;
+        private Label label33;
+        private Label label34;
+        private Label label35;
+        private Label label36;
+        private NumericUpDown numericUpDown1;
+        private NumericUpDown numericUpDown2;
+        private NumericUpDown numericUpDown3;
+        private CheckBox checkBox3;
+        private CheckBox checkBox4;
+        private Label label10;
+        private Label label37;
+        private TextBox textBox19;
     }
 }

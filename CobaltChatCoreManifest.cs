@@ -14,7 +14,7 @@ namespace CobaltChatCore
 {
     public class CobaltChatCoreManifest : ISpriteManifest, IAnimationManifest, ICustomEventManifest, IDeckManifest, IAddinManifest
     {
-        public const string version = "0.7.9";
+        public const string version = "0.8";
 
         public DirectoryInfo? ModRootFolder { get; set; }
         public DirectoryInfo? GameRootFolder { get; set; }
@@ -151,7 +151,6 @@ namespace CobaltChatCore
                     throw new Exception("Invalid token or missing channel name! CobaltChatCore aborted...");
 
                 Configuration.SaveConfiguration();//right after warmup, so save any potential stuff like changed channel name
-                
                 //await Configuration.GetConfiguration(Logger, ModRootFolder); we use warmup
                 //await TwitchApiUser.ObtainAccessToken(); in warmup
                 await TwitchChat.ConnectToChat();

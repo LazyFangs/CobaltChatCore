@@ -149,8 +149,8 @@ namespace CobaltChatCore
             var list = ChattersAvailable.ToImmutableDictionary();
             Random random = new Random();
             double randomNumber = random.NextDouble();
-
-            if (list.Count > 0 && randomNumber < Configuration.Instance.ChatterEnemyChance)
+            
+            if (list.Count > 0 && Configuration.Instance.ChatterEnemyChance > randomNumber)
             {
                 string chosenOne = null;
                 switch (Configuration.Instance.EnemyChatterChoiceMode)
@@ -233,6 +233,9 @@ namespace CobaltChatCore
 
         void OnChatterEjected(string s)
         {
+            if (CurrentCombatant == null)
+                return;
+
             if (s == null || CurrentCombatant == s)
             {
                 TwitchChat.SendMessageToChat(Configuration.Instance.ChatterEjectText.Replace("{User}", CurrentCombatant));

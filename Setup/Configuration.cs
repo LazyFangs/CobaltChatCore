@@ -31,16 +31,17 @@ namespace CobaltChatCore
         #region Strings
         public int SecondsBetweenReminders { get; set; } = 300;//every 5 minutes
         public static string OnSetupCompleteText { get => $"CobaltChatCore v {CobaltChatCoreManifest.version} active!"; }
-        public string RemindersText { get; set; } = "Type {JoinCommand} to potentially become an enemy in the next fight!";
+        public string RemindersText { get; set; } = "Type {JoinCommand} to potentially become an enemy in the next fight (or a drone in the current one)!";
         public string QueueOpenText { get; set; } = "Queue open! Type {JoinCommand} to potentially become an enemy in the next fight!";
         public string QueueClosedText { get; set; } = "Queue closed! No more fighting chat!";
         public string InsufficientPrivledgeText { get; set; } = "You can't use this command, sorry!";
         public string JoinFailedQueueClosedText { get; set; } = "You can't join right now, the queue is closed, sorry!";
         public string JoinFailedAlreadyQueuedText { get; set; } = "You are already prepared to fight! You can't join twice!";
         public string JoinFailedBannedText { get; set; } = "You are banned from taking part in the queue!";
-        public string ChatterJoinedText { get; set; } = "{User} joined the fray! They might show up as the next enemy!";
+        public string ChatterJoinedText { get; set; } = "{User} joined the fray! They might show up as the next enemy (or drone)!";
         public string QueueClearedText { get; set; } = "Queue cleared! No one left to fight!";
         public string ChatterEjectText { get; set; } = "{User} ejected from the cockpit! Look at them go... into space.... weeee...";
+        public string ChatterDroneEjectText { get; set; } = "{User} ejected from a drone! Look at them go... into space.... weeee...";
         public string ChatterBanText { get; set; } = "{User}'s timestreams were cast into the void...";
         public string ChatterUnbanText { get; set; } = "{User} is too important for the timestream, they came back.";
         #endregion
@@ -85,8 +86,9 @@ namespace CobaltChatCore
         #endregion
         #region Drone Hijack Parameters
         public bool AllowChattersAsDrones { get; set; } = true;
-        public bool AllowChatterDronesMove { get; set; } = true;
-        public bool AllowChatterDronesShoot { get; set; } = true;
+        public bool AllowChatterDroneEnemies { get; set; } = true;
+        public int ChatterDroneMoves { get; set; } = 1;
+        public int ChatterDroneShots { get; set; } = 1;
         public float ChatterDroneChance { get; set; } = 1;//0 - 100% chance
         #endregion
 

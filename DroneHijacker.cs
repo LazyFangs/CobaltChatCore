@@ -21,8 +21,8 @@ namespace CobaltChatCore
         public bool nameStaysUp = false;
         public Color color;
 
-        public bool moved = false;
-        public bool shot = false;
+        public int moves = Configuration.Instance.ChatterDroneMoves;
+        public int shots = Configuration.Instance.ChatterDroneShots;
 
         public ChatterDrone(string selectedChatter, WeakReference weakReference) : this(selectedChatter, weakReference, new Color())
         {
@@ -119,10 +119,12 @@ namespace CobaltChatCore
 
             CobaltChatCoreManifest.EventHub.ConnectToEvent<ASpawn>(CobaltChatCoreManifest.ASpawnBeginPre, (asp) => PrefixReplaceDroneWithChatter(asp));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<ASpawn>(CobaltChatCoreManifest.ASpawnBeginPost, (asp) => PostfixSortDronesAndFixNamePositions(asp));
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => OnStateEnterClearDrones(s));
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<Combat>(CobaltChatCoreManifest.UpdateCombatEvent, (c) => OnCombatUpdate(c));            
+            //CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => OnStateEnterClearDrones(s));
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<State>(CobaltChatCoreManifest.StartCombatEvent, (s) => OnStateEnterClearDrones());
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<Combat>(CobaltChatCoreManifest.UpdateCombatEvent, (c) => OnCombatUpdate(c));
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.ChatterEjectedEvent, (s) => OnChatterEjected(s));
 
-            if (Configuration.Instance.AllowChatterDronesMove)
+            if (Configuration.Instance.ChatterDroneMoves > 0)
                 commands.Add(Configuration.Instance.ChatterDroneMoveLeftCommand, new TwitchCommand(TwitchCommand.AccessLevel.EVERYONE, (e) =>
                 {
                     foreach(ChatterDrone chd in hijackedDrones)
@@ -134,7 +136,7 @@ namespace CobaltChatCore
                         }
                     }
                 }));
-            if (Configuration.Instance.AllowChatterDronesMove)
+            if (Configuration.Instance.ChatterDroneMoves > 0)
                 commands.Add(Configuration.Instance.ChatterDroneMoveRightCommand, new TwitchCommand(TwitchCommand.AccessLevel.EVERYONE, (e) =>
                 {
                     foreach (ChatterDrone chd in hijackedDrones)
@@ -147,7 +149,7 @@ namespace CobaltChatCore
                     }
 
                 }));
-            if (Configuration.Instance.AllowChatterDronesShoot)
+            if (Configuration.Instance.ChatterDroneShots > 0)
                 commands.Add(Configuration.Instance.ChatterDroneShootCommand, new TwitchCommand(TwitchCommand.AccessLevel.EVERYONE, (e) =>
                 {
                     foreach (ChatterDrone chd in hijackedDrones)
@@ -159,6 +161,20 @@ namespace CobaltChatCore
                         }
                     }
                 }));
+        }
+
+        void OnChatterEjected(string s)
+        {
+            foreach (ChatterDrone chd in hijackedDrones)
+            {
+                if (chd.owner == s && chd.droneRef.Target != null)
+                {
+                    TwitchChat.SendMessageToChat(Configuration.Instance.ChatterDroneEjectText.Replace("{User}", s));
+                    Logger.LogInformation($"Ejecting ChatterDrone {s}");
+                    chd.droneRef.Target = null;
+                    break;
+                }
+            }
         }
 
 
@@ -175,24 +191,24 @@ namespace CobaltChatCore
             switch (action)
             {
                 case ChatterDroneAction.LEFT:
-                    if (!chd.moved)
+                    if (chd.moves > 0)
                     {
                         c.Queue(new SingleDroneMove(drone, ChatterDroneAction.LEFT));
-                        chd.moved = true;
+                        chd.moves--;
                     }
                     break;
                 case ChatterDroneAction.RIGHT:
-                    if (!chd.moved)
+                    if (chd.moves > 0)
                     {
                         c.Queue(new SingleDroneMove(drone, ChatterDroneAction.RIGHT));
-                        chd.moved = true;
+                        chd.moves--;
                     }
                     break;
                 case ChatterDroneAction.SHOOT:
-                    if (!chd.shot)
+                    if (chd.shots > 0)
                     {
                         c.Queue(new SingleDroneShot(drone));
-                        chd.shot = true;
+                        chd.shots--;
                     }
                     break;
             }           
@@ -209,13 +225,12 @@ namespace CobaltChatCore
             }
         }
 
-        void OnStateEnterClearDrones(string type)
+        void OnStateEnterClearDrones()
         {
-            if (type != "Combat")
-            {
-                hijackedDrones.Clear();
-                //currentState = null;
-            }
+            Logger.LogInformation("Cleaned drone list");   
+            hijackedDrones.Clear();
+            //currentState = null;
+            
 
         }
 
@@ -235,6 +250,9 @@ namespace CobaltChatCore
             if (!Configuration.Instance.AllowChattersAsDrones)
                 return;
 
+            if (!spawn.fromPlayer && !Configuration.Instance.AllowChatterDroneEnemies)
+                return;
+
             if (spawn.thing is not AttackDrone && spawn.thing is not ShieldDrone && spawn.thing is not EnergyDrone)
             {
                 Logger.LogInformation("Not allowed drone type");
@@ -248,7 +266,8 @@ namespace CobaltChatCore
                 Logger.LogInformation($"Drone hijacked by {selectedChatter}");
                 hijackedDrones.Add(chdrone);
                 spawn.isaacNamesIt = false;
-                spawn.thing.droneNameAccordingToIsaac = selectedChatter;
+                if (spawn.fromPlayer)
+                    spawn.thing.droneNameAccordingToIsaac = selectedChatter;
             }
             else
             {                
@@ -265,7 +284,7 @@ namespace CobaltChatCore
             List<string> notAllowed = Owners;
             List<string> list = CommandManager.ChattersAvailable.ToImmutableDictionary().Keys.Where(k => !notAllowed.Contains(k)).ToList();
 
-            if (list.Count > 0 && randomNumber < Configuration.Instance.ChatterDroneChance)
+            if (list.Count > 0 && Configuration.Instance.ChatterDroneChance > randomNumber)
             { 
                 return list.ElementAt(random.Next(0, list.Count()));  
             }

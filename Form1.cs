@@ -160,5 +160,11 @@ namespace CobaltChatCore
            
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Configuration.SaveConfiguration();
+        }
+
+       
     }
 }

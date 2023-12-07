@@ -1,10 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using TwitchLib.Api.Helix.Models.Charity;
 using TwitchLib.Client;
 using TwitchLib.Client.Events;
+using TwitchLib.Client.Models;
 using static CobaltChatCore.Configuration;
 
 namespace CobaltChatCore
@@ -109,7 +111,7 @@ namespace CobaltChatCore
 
         void AddCommands()
         {
-            if (Configuration.Instance.JoinCommandEnabled)
+            if (Configuration.Instance.JoinCommandEnabled || Configuration.Instance.AllowChattersAsDrones || Configuration.Instance.AllowChatterDroneEnemies)
                 commands.Add(Configuration.Instance.JoinCommand, new TwitchCommand((e) => {
                     if (!queueOpen)
                     {
@@ -156,7 +158,13 @@ namespace CobaltChatCore
             }));
             commands.Add(Configuration.Instance.ChatterEjectCommand, new TwitchCommand(TwitchCommand.AccessLevel.MOD, (e) =>
             {
-                CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, (string)null);   
+                var list = e.ChatMessage.Message.Split(" ");
+                string name = null;
+                if (list.Length > 1 && !string.IsNullOrEmpty(list[1]))
+                {
+                     name = TryFindChatterName(list[1]);
+                }
+                CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, name);   
             }));
             commands.Add(Configuration.Instance.ChatterBanCommand, new TwitchCommand(TwitchCommand.AccessLevel.MOD, (e) =>
             {
@@ -164,17 +172,13 @@ namespace CobaltChatCore
 
                 if (list.Length > 1 && !string.IsNullOrEmpty(list[1]))
                 {
-                    var name = list[1].StartsWith("@") ? list[1].Substring(1) : list[1];
-                    foreach (string user in ChattersAvailable.Keys)
-                    {
-                        if (user.ToLower() == name.ToLower()) {
-                            name = user; 
-                            ChattersAvailable.Remove(user);
-                            CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, name);
-                            bannedChatters.Add(name);
-                            TwitchChat.SendMessageToChat(Configuration.Instance.ChatterBanText.Replace("{User}", name));
-                            break;
-                        }
+                    var name = TryFindChatterName(list[1]);
+                    
+                    if (name != null) {
+                        ChattersAvailable.Remove(name);
+                        CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterEjectedEvent, name);
+                        bannedChatters.Add(name);
+                        TwitchChat.SendMessageToChat(Configuration.Instance.ChatterBanText.Replace("{User}", name));
                     }
                 }
             }));
@@ -184,16 +188,10 @@ namespace CobaltChatCore
 
                 if (list.Length > 1 && !string.IsNullOrEmpty(list[1]))
                 {
-                    var name = list[1].StartsWith("@") ? list[1].Substring(1) : list[1];
-                    foreach (string user in bannedChatters)
-                    {
-                        if (user.ToLower() == name.ToLower())
-                        {
-                            name = user;
-                            bannedChatters.Remove(user);
-                            TwitchChat.SendMessageToChat(Configuration.Instance.ChatterUnbanText.Replace("{User}", name));
-                            break;
-                        }
+                    var name = TryFindChatterName(list[1], bannedChatters);
+                    if (name != null)  {
+                       bannedChatters.Remove(name);
+                       TwitchChat.SendMessageToChat(Configuration.Instance.ChatterUnbanText.Replace("{User}", name));         
                     }
                 }
             }));
@@ -234,6 +232,25 @@ namespace CobaltChatCore
             }));
             
 
+
+        }
+
+        public static string TryFindChatterName(string clue)
+        {
+            return TryFindChatterName(clue, ChattersAvailable.Keys.ToList());
+        }
+
+        public static string TryFindChatterName(string clue, List<string> list )
+        {
+            var name = clue.StartsWith("@") ? clue.Substring(1) : clue;
+            foreach (string user in list)
+            {
+                if (user.ToLower() == name.ToLower())
+                {
+                    return user;
+                }
+            }
+            return null;
         }
 
         Card TryMakeCard(string cardName)
