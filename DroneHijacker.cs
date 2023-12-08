@@ -261,8 +261,10 @@ namespace CobaltChatCore
 
             var selectedChatter = SelectChatter();
             if (selectedChatter != null)
-            {
-                ChatterDrone chdrone = new ChatterDrone(selectedChatter, new WeakReference(spawn.thing), CommandManager.ChatterColors[selectedChatter]);
+            {               
+                if (!CommandManager.ChatterColors.TryGetValue(selectedChatter, out Color color))
+                    color = new Color(1,1,1);
+                ChatterDrone chdrone = new ChatterDrone(selectedChatter, new WeakReference(spawn.thing), color);
                 Logger.LogInformation($"Drone hijacked by {selectedChatter}");
                 hijackedDrones.Add(chdrone);
                 spawn.isaacNamesIt = false;

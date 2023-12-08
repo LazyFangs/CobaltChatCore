@@ -28,7 +28,7 @@ namespace CobaltChatCore
             var g_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("G")?.GetMethod("Render") ?? throw new Exception("G Render not Found!");
             var card_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("Card")?.GetMethod("Render") ?? throw new Exception("AttackDrone Render not Found!");
 
-            var attackdrone_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("AttackDrone")?.GetMethod("Render") ?? throw new Exception("Card Render not Found!");
+            var stuffbase_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("Render") ?? throw new Exception("Card Render not Found!");
             var aspawn_begin_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("ASpawn")?.GetMethod("Begin") ?? throw new Exception("Card Render not Found!");
             var stuffbase_ondestroyed_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("DoDestroyedEffect") ?? throw new Exception("DoDestroyedEffect not Found!");
 
@@ -37,7 +37,7 @@ namespace CobaltChatCore
             var route_enter_postfix = typeof(HarmonyPatcher).GetMethod("RouteOnEnter_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
             var g_render_postfix = typeof(HarmonyPatcher).GetMethod("GRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
             var card_render_postfix = typeof(HarmonyPatcher).GetMethod("CardRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
-            var attackdrone_render_postfix = typeof(HarmonyPatcher).GetMethod("AttackDroneRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
+            var stuffbase_render_postfix = typeof(HarmonyPatcher).GetMethod("StuffBaseRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var aspawn_begin_postfix = typeof(HarmonyPatcher).GetMethod("ASpawnBegin_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var aspawn_begin_prefix = typeof(HarmonyPatcher).GetMethod("ASpawnBegin_PreFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var stuffbase_ondestroyed_postfix = typeof(HarmonyPatcher).GetMethod("StuffBaseOnDestroyedEffect_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
@@ -47,7 +47,7 @@ namespace CobaltChatCore
             harmony.Patch(route_enter_method, postfix: new HarmonyMethod(route_enter_postfix));
             harmony.Patch(g_render_method, postfix: new HarmonyMethod(g_render_postfix)); 
             harmony.Patch(card_render_method, postfix: new HarmonyMethod(card_render_postfix));
-            harmony.Patch(attackdrone_render_method, postfix: new HarmonyMethod(attackdrone_render_postfix));
+            harmony.Patch(stuffbase_render_method, postfix: new HarmonyMethod(stuffbase_render_postfix));
             harmony.Patch(aspawn_begin_method, postfix: new HarmonyMethod(aspawn_begin_postfix));
             harmony.Patch(aspawn_begin_method, prefix: new HarmonyMethod(aspawn_begin_prefix));
             harmony.Patch(stuffbase_ondestroyed_method, postfix: new HarmonyMethod(stuffbase_ondestroyed_postfix));
@@ -127,7 +127,8 @@ namespace CobaltChatCore
             return list[rnd.Next(list.Count())];
         }
 
-        private static void AttackDroneRender_PostFix(object[] __args, AttackDrone __instance)
+        
+        private static void StuffBaseRender_PostFix(object[] __args, AttackDrone __instance)
         {
             var foundDrone = DroneHijacker.hijackedDrones.Where(d => d.droneRef.Target == __instance).ToList();
             if (foundDrone.Count() > 0)

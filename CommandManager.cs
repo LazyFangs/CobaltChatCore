@@ -132,7 +132,15 @@ namespace CobaltChatCore
 
                     logger.LogInformation($"{e.ChatMessage.DisplayName} joined the fight!");
                     ChattersAvailable.Add(e.ChatMessage.DisplayName, 0);
-                    ChatterColors.Add(e.ChatMessage.DisplayName, new Color(e.ChatMessage.ColorHex.Substring(1)));
+                    try
+                    {
+                        //RFT bug, seems sometimes there aren't colors?
+                        ChatterColors.Add(e.ChatMessage.DisplayName, new Color(e.ChatMessage.ColorHex.Substring(1)));
+                    }catch(Exception ex)
+                    {
+                        logger.LogError($"Missing color! It says its {e.ChatMessage.ColorHex}", ex);
+                        ChatterColors.Add(e.ChatMessage.DisplayName, new Color(1,1,1));
+                    }
                     CobaltChatCoreManifest.EventHub.SignalEvent(CobaltChatCoreManifest.ChatterJoinsEvent, e.ChatMessage);
                     TwitchChat.SendMessageToChat(Configuration.Instance.ChatterJoinedText.Replace("{User}", e.ChatMessage.DisplayName));
 
