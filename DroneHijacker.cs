@@ -119,8 +119,8 @@ namespace CobaltChatCore
 
             CobaltChatCoreManifest.EventHub.ConnectToEvent<ASpawn>(CobaltChatCoreManifest.ASpawnBeginPre, (asp) => PrefixReplaceDroneWithChatter(asp));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<ASpawn>(CobaltChatCoreManifest.ASpawnBeginPost, (asp) => PostfixSortDronesAndFixNamePositions(asp));
-            //CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => OnStateEnterClearDrones(s));
-            CobaltChatCoreManifest.EventHub.ConnectToEvent<State>(CobaltChatCoreManifest.StartCombatEvent, (s) => OnStateEnterClearDrones());
+            CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.EnterRouteEvent, (s) => OnStateEnterClearDrones());
+            //CobaltChatCoreManifest.EventHub.ConnectToEvent<State>(CobaltChatCoreManifest.StartCombatEvent, (s) => OnStateEnterClearDrones());
             CobaltChatCoreManifest.EventHub.ConnectToEvent<Combat>(CobaltChatCoreManifest.UpdateCombatEvent, (c) => OnCombatUpdate(c));
             CobaltChatCoreManifest.EventHub.ConnectToEvent<string>(CobaltChatCoreManifest.ChatterEjectedEvent, (s) => OnChatterEjected(s));
 
