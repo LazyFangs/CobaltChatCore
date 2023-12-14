@@ -325,6 +325,8 @@ namespace CobaltChatCore
                 CachedTextures = CobaltCoreHandler.CobaltCoreAssembly?.GetType("SpriteLoader")?.GetField("textures").GetValue(null) as Dictionary<Spr,Texture2D>;
             if (CharPanels == null)
                 CharPanels = CobaltCoreHandler.CobaltCoreAssembly?.GetType("DB")?.GetField("charPanels")?.GetValue(null) as IDictionary ?? throw new Exception("Cant find panels");
+            if (!DB.currentLocale.strings.ContainsKey("char." + CobaltChatCoreManifest.TwitchCharacterName + "Deck"))
+                DB.currentLocale.strings["char." + CobaltChatCoreManifest.TwitchCharacterName + "Deck"] = FallbackCharacterName;
 
             if (GetGraphicsDevice() != null && CachedTextures != null && newIncomingChatters.TryDequeue(out TwitchChatter? chatter))
             {
