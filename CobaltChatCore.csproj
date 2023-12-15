@@ -25,15 +25,15 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CobaltCoreModding.Components">
-      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModding.Components.dll</HintPath>
+      <HintPath>..\..\CobaltCoreModLauncher\CobaltCoreModLauncher\CobaltCoreModding.Components.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CobaltCoreModding.Definitions">
-      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModding.Definitions.dll</HintPath>
+      <HintPath>..\..\CobaltCoreModLauncher\CobaltCoreModLauncher\CobaltCoreModding.Definitions.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CobaltCoreModLoaderApp">
-      <HintPath>..\..\Modloader\CobaltCoreModLoaderApp\bin\Debug\net6.0-windows7.0\CobaltCoreModLoaderApp.dll</HintPath>
+      <HintPath>..\..\CobaltCoreModLauncher\CobaltCoreModLauncher\CobaltCoreModLoaderApp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">

@@ -28,7 +28,7 @@ namespace CobaltChatCore
             var g_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("G")?.GetMethod("Render") ?? throw new Exception("G Render not Found!");
             var card_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("Card")?.GetMethod("Render") ?? throw new Exception("AttackDrone Render not Found!");
 
-            var stuffbase_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("Render") ?? throw new Exception("Card Render not Found!");
+            var stuffbase_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("DrawWithHilight") ?? throw new Exception("Card Render not Found!");
             var aspawn_begin_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("ASpawn")?.GetMethod("Begin") ?? throw new Exception("Card Render not Found!");
             var stuffbase_ondestroyed_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("DoDestroyedEffect") ?? throw new Exception("DoDestroyedEffect not Found!");
 
@@ -37,7 +37,7 @@ namespace CobaltChatCore
             var route_enter_postfix = typeof(HarmonyPatcher).GetMethod("RouteOnEnter_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
             var g_render_postfix = typeof(HarmonyPatcher).GetMethod("GRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
             var card_render_postfix = typeof(HarmonyPatcher).GetMethod("CardRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("route start postfix not found");
-            var stuffbase_render_postfix = typeof(HarmonyPatcher).GetMethod("StuffBaseRender_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
+            var stuffbase_render_postfix = typeof(HarmonyPatcher).GetMethod("StuffBaseDrawWithHilight_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var aspawn_begin_postfix = typeof(HarmonyPatcher).GetMethod("ASpawnBegin_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var aspawn_begin_prefix = typeof(HarmonyPatcher).GetMethod("ASpawnBegin_PreFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
             var stuffbase_ondestroyed_postfix = typeof(HarmonyPatcher).GetMethod("StuffBaseOnDestroyedEffect_PostFix", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new Exception("attack drone postfix not found");
@@ -128,16 +128,16 @@ namespace CobaltChatCore
         }
 
         
-        private static void StuffBaseRender_PostFix(object[] __args, AttackDrone __instance)
+        private static void StuffBaseDrawWithHilight_PostFix(object[] __args, AttackDrone __instance)
         {
             var foundDrone = DroneHijacker.hijackedDrones.Where(d => d.droneRef.Target == __instance).ToList();
             if (foundDrone.Count() > 0)
             {
                 Color? color2 = foundDrone[0].color;
                 Color? colorForce = new Color?();
-                Vec v = (Vec)__args[1];
-                Vec offset = __instance.GetOffset((G)__args[0]);
-                Draw.Text(foundDrone[0].owner.Substring(0,5), v.x + offset.x+10, v.y + offset.y+25+(foundDrone[0].nameStaysUp ? 0 : 10),
+                Vec v = (Vec)__args[2];
+                
+                Draw.Text(foundDrone[0].owner.Substring(0,5), v.x+10, v.y+26+(foundDrone[0].nameStaysUp ? 0 : 9),
                     color: color2,
                     colorForce: colorForce,
                     outline : new Color?(Colors.black),

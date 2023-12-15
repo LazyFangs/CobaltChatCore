@@ -9,6 +9,7 @@ namespace CobaltChatCore
 
     public class Configuration 
     {
+        public string CobaltCoreVersion { get; set; } = "1.0.6";
         public string AccessToken { get; set; } = "";
         public long ValidUntil { get; set; } = 0;
         public string ChannelName { get; set; } = "";
