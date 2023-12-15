@@ -1,6 +1,6 @@
 # CobaltChatCore
 Twitch Chat Integration for Cobalt Core made by Lazy Fangs\
-Compatible with modloader: [2.0.2](https://github.com/Ewanderer/CobaltCoreModLoader/releases/tag/v2.0.2)
+Compatible with modloader: [2.0.2](https://github.com/Ewanderer/CobaltCoreModLoader/releases/tag/v2.0.2)\
 Compatible with game version: 1.0.6
 
 ## Current Features:
