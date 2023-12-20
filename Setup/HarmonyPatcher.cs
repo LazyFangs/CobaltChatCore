@@ -26,9 +26,9 @@ namespace CobaltChatCore
             var route_enter_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("Route")?.GetMethod("OnEnter") ?? throw new Exception("Combat OnExit not Found!");
             //to help load character textures
             var g_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("G")?.GetMethod("Render") ?? throw new Exception("G Render not Found!");
-            var card_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("Card")?.GetMethod("Render") ?? throw new Exception("AttackDrone Render not Found!");
+            var card_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("Card")?.GetMethod("Render") ?? throw new Exception("Card Render not Found!");
 
-            var stuffbase_render_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("DrawWithHilight") ?? throw new Exception("Card Render not Found!");
+            var stuffbase_render_method = typeof(StuffBase).GetMethod("DrawWithHilight") ?? throw new Exception("stuff base not found!");
             var aspawn_begin_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("ASpawn")?.GetMethod("Begin") ?? throw new Exception("Card Render not Found!");
             var stuffbase_ondestroyed_method = CobaltCoreHandler.CobaltCoreAssembly?.GetType("StuffBase")?.GetMethod("DoDestroyedEffect") ?? throw new Exception("DoDestroyedEffect not Found!");
 
@@ -85,8 +85,11 @@ namespace CobaltChatCore
             return list[rnd.Next(list.Count())];
         }
 
-        private static void ASpawnBegin_PreFix(ASpawn __instance)
+        private static void ASpawnBegin_PreFix(ASpawn __instance, object[] __args)
         {
+            G g = (G)__args[0];
+            if (__instance.fromPlayer && g.state.ship.GetPartTypeCount(PType.missiles) > 1 && !__instance.multiBayVolley)
+                return;//we need to safeguard against this being the call to AVolleySpawnFromAllMissileBays
             CobaltChatCoreManifest.EventHub?.SignalEvent<ASpawn>(CobaltChatCoreManifest.ASpawnBeginPre, __instance);
         }
 
@@ -128,23 +131,21 @@ namespace CobaltChatCore
         }
 
         
-        private static void StuffBaseDrawWithHilight_PostFix(object[] __args, AttackDrone __instance)
+        private static void StuffBaseDrawWithHilight_PostFix(object[] __args, StuffBase __instance)
         {
-            var foundDrone = DroneHijacker.hijackedDrones.Where(d => d.droneRef.Target == __instance).ToList();
-            if (foundDrone.Count() > 0)
+            var foundDrone = DroneHijacker.hijackedDrones.Find(d => d.owner == __instance.droneNameAccordingToIsaac);
+            if (foundDrone != null)
             {
-                Color? color2 = foundDrone[0].color;
-                Color? colorForce = new Color?();
+                Color? color2 = foundDrone.color;
                 Vec v = (Vec)__args[2];
-                
-                Draw.Text(foundDrone[0].owner.Substring(0,5), v.x+10, v.y+26+(foundDrone[0].nameStaysUp ? 0 : 9),
+
+                Draw.Text(foundDrone.owner.Substring(0, 5), v.x + 10, v.y + 26 + (foundDrone.nameStaysUp ? 0 : 9),
                     color: color2,
-                    colorForce: colorForce,
-                    outline : new Color?(Colors.black),
+                    outline: new Color?(Colors.black),
                     align: TAlign.Center
                     );
-                
             }
+            
                 
         }
 

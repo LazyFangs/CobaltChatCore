@@ -131,7 +131,14 @@ namespace CobaltChatCore
                     }
 
                     logger.LogInformation($"{e.ChatMessage.DisplayName} joined the fight!");
-                    ChattersAvailable.Add(e.ChatMessage.DisplayName, 0);
+                    if (ChattersAvailable.Count > 0)
+                    {
+                        int lowestNumber = ChattersAvailable.Where(kvp => kvp.Value < Configuration.Instance.ChatterPickLimit).OrderBy(kvp => kvp.Value).First().Value;
+                        lowestNumber = lowestNumber == 0 ? 0 : lowestNumber - 1;//guarantee first spawn
+                        ChattersAvailable.Add(e.ChatMessage.DisplayName, lowestNumber);//make sure the player isn't favored over and over
+                    }
+                    else
+                        ChattersAvailable.Add(e.ChatMessage.DisplayName, 0);//make sure the player isn't favored over and over
                     try
                     {
                         //RFT bug, seems sometimes there aren't colors?
@@ -240,7 +247,14 @@ namespace CobaltChatCore
                 });
             //silent fail, this is a hidden function after all
             }));
-            
+            commands.Add("forceAdd", new TwitchCommand(TwitchCommand.AccessLevel.SPECIAL, (e) =>
+            {
+                Random rnd = new Random();
+                string name = rnd.Next().ToString();
+                ChattersAvailable[name] =  0;//make sure the player isn't favored over and over
+                ChatterColors[name] = new Color(1, 1, 1);
+            }));
+
 
 
         }

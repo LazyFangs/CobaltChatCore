@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <Reference Include="CobaltCore">
-      <HintPath>..\..\..\Steam\steamapps\common\Cobalt Core\CobaltCore.dll</HintPath>
+      <HintPath>..\..\..\Steam\steamapps\common\Cobalt Core\CobaltCore106.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CobaltCoreModding.Components">

@@ -161,6 +161,7 @@ namespace CobaltChatCore
                         }
                     }
                 }));
+            
         }
 
         void OnChatterEjected(string s)

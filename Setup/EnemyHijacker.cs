@@ -9,6 +9,7 @@ using static CobaltChatCore.Configuration;
 using static CobaltChatCore.CommandManager;
 using TwitchLib.Client.Events;
 using System.Collections.Immutable;
+using daisyowl.text;
 
 namespace CobaltChatCore
 {
@@ -321,6 +322,8 @@ namespace CobaltChatCore
         /// </summary>
         void OnGRenderMakeEnemyASAP()
         {
+            
+
             if (CachedTextures == null)
                 CachedTextures = CobaltCoreHandler.CobaltCoreAssembly?.GetType("SpriteLoader")?.GetField("textures").GetValue(null) as Dictionary<Spr,Texture2D>;
             if (CharPanels == null)
