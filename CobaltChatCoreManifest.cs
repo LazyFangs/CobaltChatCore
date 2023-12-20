@@ -14,7 +14,7 @@ namespace CobaltChatCore
 {
     public class CobaltChatCoreManifest : ISpriteManifest, IAnimationManifest, ICustomEventManifest, IDeckManifest, IAddinManifest
     {
-        public const string version = "0.8.3";
+        public const string version = "0.8.4";
 
         public DirectoryInfo? ModRootFolder { get; set; }
         public DirectoryInfo? GameRootFolder { get; set; }

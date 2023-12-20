@@ -182,13 +182,15 @@ namespace CobaltChatCore
 
         void DoDroneAction(ChatterDrone chd, ChatterDroneAction action, Combat c)
         {
-            if (chd.droneRef.Target == null)
+            StuffBase drone = (StuffBase)chd.droneRef.Target;
+            //drones are not immediatelly removed from WeakReference - check like this instead
+            if (drone == null || !c.stuff.Keys.Contains(drone.x) || c.stuff[drone.x] != drone)
             {
-                //don't do anything, they had their chance
+                //don't do anything, drone dead
                 return;
             }
 
-            StuffBase drone = (StuffBase)chd.droneRef.Target;
+            
             switch (action)
             {
                 case ChatterDroneAction.LEFT:
